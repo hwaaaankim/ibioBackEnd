@@ -1,0 +1,17 @@
+# Directories
+node_modules/
+dist/
+coverage/
+
+# Files
+.env
+.env.*
+*.log
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
