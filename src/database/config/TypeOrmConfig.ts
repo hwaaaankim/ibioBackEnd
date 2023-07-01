@@ -7,7 +7,7 @@ export const TypeOrmConfig: TypeOrmModuleOptions =
   "port": 3306,
   "username": "root",
   "password": "",
-  "database": "ecommerce-master",
+  "database": "shopping-mall",
   "entities": [
     "dist/**/*.entity{.ts,.js}",
     "dist/**/data/models/*Entity{.ts,.js}"
