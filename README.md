@@ -19,14 +19,14 @@ To install the API server, follow these steps:
 
 2. Navigate to the project directory:
 
-   \$ cd shopping-mall-api-server
+   `$ cd shopping-mall-api-server`
 
 3. Install the dependencies:
 
-   \$ npm install
+   `$ npm install`
 
 4. Start the API server:
 
-   \$ npm run start
+   `$ npm run start`
 
 5. The API server will now be running on `http://localhost:3001`
