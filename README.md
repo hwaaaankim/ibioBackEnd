@@ -14,7 +14,7 @@ Before running the API server, you need to have the following software installed
 To install the API server, follow these steps:
 
 1. Clone the repository to your local machine:
-   \$ git clone https://github.com/hanielsd/rays.shoppingmall-api-server.git
+   `$ git clone https://github.com/hanielsd/rays.shoppingmall-api-server.git`
 
 2. Navigate to the project directory:
    \$ cd shopping-mall-api-server
