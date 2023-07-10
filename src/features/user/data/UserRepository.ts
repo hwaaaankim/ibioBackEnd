@@ -16,26 +16,35 @@ import { UserEntity } from './models/UserEntity';
 import { PasswordDto } from './dtos/PasswordDto';
 import { VerificationMail } from '../web/VerificationMail';
 import { AddressEntity } from './models/AddressEntity';
+import { AppDataSource } from '../../../database/config/TypeOrmConfig';
 
 export class UserRepository implements User {
+  entity: EntityClassOrSchema = UserEntity;
+  user = AuthenticatedUser.getInstance();
 
+  private userRepository = AppDataSource.getRepository(this.entity);
 
   async emailExists(email: string): Promise<any> {
-    const exists = await getRepository(this.entity).findOne({ where: { email: email }})
-    if (!exists) throw new DataNotFoundException('email doesnt exist')
-    return true
+    const exists = await this.userRepository.findOne({
+      where: { email: email },
+    });
+    if (!exists) throw new DataNotFoundException('email doesnt exist');
+    return true;
   }
 
-
-  async phoneNumberExists(phoneNumber: string) : Promise<any> {
-    const exists = await getRepository(this.entity).findOne({ where: { telephone: phoneNumber }})
-    if (!exists) throw new DataNotFoundException('telephone doesnt exist')
-    return true
+  async phoneNumberExists(phoneNumber: string): Promise<any> {
+    const exists = await this.userRepository.findOne({
+      where: { telephone: phoneNumber },
+    });
+    if (!exists) throw new DataNotFoundException('telephone doesnt exist');
+    return true;
   }
 
   async updatePassword(passwordDto: PasswordDto): Promise<boolean> {
-    const userId = AuthenticatedUser.getInstance().userId
-    const user: UserEntity = await getRepository(this.entity).findOne(userId)
+    const userId = AuthenticatedUser.getInstance().userId;
+    const user: UserEntity = await await this.userRepository.findOne({
+      where: { id: userId },
+    });
     try {
       const hash: PasswordHashDto = await PasswordHasher.hashPassword(
         passwordDto.oldPassword,
@@ -44,38 +53,38 @@ export class UserRepository implements User {
       if (hash.hashedPassword !== passwordDto.oldPassword) {
         throw new UnauthorizedException('Incorrect login credentials');
       }
-      const hashed = await PasswordHasher.hashPassword(passwordDto.newPassword, user.salt)
-      user.password = hashed.hashedPassword
-      await user.save()
-      return true
+      const hashed = await PasswordHasher.hashPassword(
+        passwordDto.newPassword,
+        user.salt,
+      );
+      user.password = hashed.hashedPassword;
+      await user.save();
+      return true;
     } catch (e) {
-      throw new SystemErrorException()
+      throw new SystemErrorException();
     }
   }
 
   // set the entity ( db table )
-  entity: EntityClassOrSchema = UserEntity;
-  user = AuthenticatedUser.getInstance();
-
 
   async updateAccount(userDto: UserDto): Promise<any> {
-    const user = AuthenticatedUser.getInstance()
-    const loggedUser: UserEntity = await getRepository(this.entity).findOne(user.userId)
-    loggedUser.firstName = userDto.firstName
-    loggedUser.lastName = userDto.lastName
-    loggedUser.email = userDto.email
-    loggedUser.telephone = userDto.telephone
-    if (userDto.fax) loggedUser.fax = userDto.fax
+    const userId = AuthenticatedUser.getInstance().userId;
+    const loggedUser: UserEntity = await this.userRepository.findOne({
+      where: { id: userId },
+    });
+    loggedUser.firstName = userDto.firstName;
+    loggedUser.lastName = userDto.lastName;
+    loggedUser.email = userDto.email;
+    loggedUser.telephone = userDto.telephone;
+    if (userDto.fax) loggedUser.fax = userDto.fax;
     try {
-      await loggedUser.save()
+      await loggedUser.save();
     } catch (e) {
-      throw new SystemErrorException()
+      throw new SystemErrorException();
     }
   }
 
   async register(userDto: UserDto): Promise<any> {
-    // get repository for entity
-    const repository = getRepository(this.entity);
     // hash password with a newly generated salt
     const hash: PasswordHashDto = await PasswordHasher.hashPassword(
       userDto.password,
@@ -85,18 +94,23 @@ export class UserRepository implements User {
     userDto.password = hash.hashedPassword;
     try {
       // save the user info
-      const user: UserEntity = await repository.create(userDto).save();
-      const address = userDto.address
-      address.userId = user.id
+      const user: UserEntity = await this.userRepository.create(userDto).save();
+      const address = userDto.address;
+      address.userId = user.id;
       // create the address
-      await getRepository(AddressEntity).create(address).save()
+      await getRepository(AddressEntity).create(address).save();
       // generate verification code
-      const code = this.generateVerificationCode()
-      await getRepository(UserVerificationEntity).create({
-        email: user.email,
-        verificationCode: code
-      }).save()
-      return await repository.findOne({ where: { id: user.id }, relations: ['address', 'verification']})
+      const code = this.generateVerificationCode();
+      await getRepository(UserVerificationEntity)
+        .create({
+          email: user.email,
+          verificationCode: code,
+        })
+        .save();
+      return await this.userRepository.findOne({
+        where: { id: user.id },
+        relations: ['address', 'verification'],
+      });
     } catch (error) {
       // check if account alreay exists
       if (error.code === 'ER_DUP_ENTRY') {
@@ -110,8 +124,9 @@ export class UserRepository implements User {
   }
 
   async login(loginDto: LoginDto): Promise<any> {
-    const user: any = await getRepository(this.entity).findOne({
-      where: { email: loginDto.email }, relations: ['address']
+    const user: any = await this.userRepository.findOne({
+      where: { email: loginDto.email },
+      relations: ['address'],
     });
     // check if user is found
     if (user) {
@@ -136,21 +151,25 @@ export class UserRepository implements User {
     }
   }
 
-
   async resendCode(email: string): Promise<any> {
-    const verification: UserVerificationEntity = await getRepository(UserVerificationEntity).findOne({ where: { email: email } });
-    const code = this.generateVerificationCode()
-    verification.verificationCode = code
+    const verification: UserVerificationEntity =
+      await AppDataSource.getRepository(UserVerificationEntity).findOne({
+        where: { email: email },
+      });
+    const code = this.generateVerificationCode();
+    verification.verificationCode = code;
     try {
-      await verification.save()
-      return code
+      await verification.save();
+      return code;
     } catch (e) {
-      throw new SystemErrorException()
+      throw new SystemErrorException();
     }
   }
 
-  private generateVerificationCode()  {
-    const code = (Math.floor(Math.random() * 1000000) + 1000000).toString().substring(1)
+  private generateVerificationCode() {
+    const code = (Math.floor(Math.random() * 1000000) + 1000000)
+      .toString()
+      .substring(1);
     return code;
   }
 
@@ -167,12 +186,14 @@ export class UserRepository implements User {
         verification.verified = true;
         try {
           await verification.save();
-          const user: any = await getRepository(UserEntity).findOne({ where: { email: verificationDto.email }});
-          user.status = true
-          await user.save()
+          const user: any = await getRepository(UserEntity).findOne({
+            where: { email: verificationDto.email },
+          });
+          user.status = true;
+          await user.save();
           return verification;
         } catch (e) {
-          throw new SystemErrorException(e)
+          throw new SystemErrorException(e);
         }
       }
     }
@@ -182,19 +203,19 @@ export class UserRepository implements User {
     const currentPage = page * 1 || 10;
     const take = limit * 1;
     const skip = (currentPage - 1) * limit || 0;
-    let accounts = await getRepository(this.entity).find({ 
-        withDeleted: false, 
-        relations: ['shop']
-      })
-    accounts = accounts.filter(account => account.role != 'ADMIN')
+    let accounts = await getRepository(this.entity).find({
+      withDeleted: false,
+      relations: ['shop'],
+    });
+    accounts = accounts.filter((account) => account.role != 'ADMIN');
     if (!accounts)
       throw new DataNotFoundException('No accounts registered so far');
     return accounts;
   }
 
   async activateAccount(id: string): Promise<boolean> {
-    const account: UserEntity = await getRepository(this.entity).findOne(id, {
-      where: { status: false },
+    const account: UserEntity = await getRepository(this.entity).findOne({
+      where: { id: id, status: false },
     });
     if (!account) throw new DataNotFoundException('Account doesnt exist');
     try {
@@ -207,8 +228,8 @@ export class UserRepository implements User {
   }
 
   async deactivateAccount(id: string): Promise<boolean> {
-    const account: UserEntity = await getRepository(this.entity).findOne(id, {
-      where: { status: true },
+    const account: UserEntity = await this.userRepository.findOne({
+      where: { id: id, status: true },
     });
     if (!account) throw new DataNotFoundException('Account doesnt exist');
     try {
