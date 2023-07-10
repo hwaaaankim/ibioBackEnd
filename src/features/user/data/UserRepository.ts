@@ -186,7 +186,9 @@ export class UserRepository implements User {
         verification.verified = true;
         try {
           await verification.save();
-          const user: any = await getRepository(UserEntity).findOne({
+          const user: any = await AppDataSource.getRepository(
+            UserEntity,
+          ).findOne({
             where: { email: verificationDto.email },
           });
           user.status = true;
