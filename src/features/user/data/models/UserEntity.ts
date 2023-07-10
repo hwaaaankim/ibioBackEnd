@@ -22,7 +22,7 @@ export class UserEntity extends BaseEntity {
 
   @Column('varchar', { nullable: false, default: 'USER' })
   role: string;
-  
+
   @Column('int', { unique: true, nullable: false })
   fax: number;
 
@@ -42,13 +42,11 @@ export class UserEntity extends BaseEntity {
   status: boolean;
 
   @CreateDateColumn()
-  created: Date
+  created: Date;
 
-  @OneToOne(() => UserVerificationEntity, ver => ver.user)
-  verification: UserVerificationEntity
+  @OneToOne(() => UserVerificationEntity, (ver) => ver.user)
+  verification: UserVerificationEntity;
 
-  @OneToOne(() => AddressEntity, add => add.user)
-  address: AddressEntity
-
-
+  @OneToOne(() => AddressEntity, (add) => add.user)
+  address: AddressEntity;
 }

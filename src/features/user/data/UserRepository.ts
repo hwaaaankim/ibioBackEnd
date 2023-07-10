@@ -7,7 +7,6 @@ import { DuplicateResouceFound } from './../../../util/exception/DuplicateResour
 import { DataNotFoundException } from './../../../util/exception/DataNotFoundException';
 import { PasswordHasher } from './PasswordHasher';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
-import { getRepository } from 'typeorm';
 import { User } from '../domain/User';
 import { LoginDto } from './dtos/LoginDto';
 import { PasswordHashDto } from './dtos/PasswordHashDto';
@@ -98,10 +97,10 @@ export class UserRepository implements User {
       const address = userDto.address;
       address.userId = user.id;
       // create the address
-      await getRepository(AddressEntity).create(address).save();
+      await AppDataSource.getRepository(AddressEntity).create(address).save();
       // generate verification code
       const code = this.generateVerificationCode();
-      await getRepository(UserVerificationEntity)
+      await AppDataSource.getRepository(UserVerificationEntity)
         .create({
           email: user.email,
           verificationCode: code,
@@ -174,9 +173,10 @@ export class UserRepository implements User {
   }
 
   async verifyUser(verificationDto: AddUserVerificationDto): Promise<any> {
-    const verification: UserVerificationEntity = await getRepository(
-      UserVerificationEntity,
-    ).findOne({ where: { email: verificationDto.email } });
+    const verification: UserVerificationEntity =
+      await AppDataSource.getRepository(UserVerificationEntity).findOne({
+        where: { email: verificationDto.email },
+      });
     if (!verification) {
       throw new DataNotFoundException('Email not found');
     } else {
@@ -205,7 +205,7 @@ export class UserRepository implements User {
     const currentPage = page * 1 || 10;
     const take = limit * 1;
     const skip = (currentPage - 1) * limit || 0;
-    let accounts = await getRepository(this.entity).find({
+    let accounts = await this.userRepository.find({
       withDeleted: false,
       relations: ['shop'],
     });
@@ -216,7 +216,7 @@ export class UserRepository implements User {
   }
 
   async activateAccount(id: string): Promise<boolean> {
-    const account: UserEntity = await getRepository(this.entity).findOne({
+    const account: UserEntity = await this.userRepository.findOne({
       where: { id: id, status: false },
     });
     if (!account) throw new DataNotFoundException('Account doesnt exist');

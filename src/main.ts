@@ -1,17 +1,15 @@
 import { SwaggerModule } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as helmet from 'helmet';
-import * as rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import { DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api/v1');
   // for production
-  app.enableCors({
-    origin: [ 'https://www.kulfinet.com', 'https://kulfinet.com', 'https://api.kulfinet.com' ]
-  });
+  app.enableCors();
   app.use(helmet());
   app.use(
     rateLimit({

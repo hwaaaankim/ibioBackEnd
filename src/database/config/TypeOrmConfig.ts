@@ -7,7 +7,7 @@ export const AppDataSource = new DataSource({
   port: 3306,
   username: 'root',
   password: '',
-  database: 'inventory',
+  database: 'shopping_mall',
   synchronize: true,
   logging: true,
   entities: [

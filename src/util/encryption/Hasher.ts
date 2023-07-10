@@ -1,8 +1,7 @@
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { Hash } from './Hash';
 
 export class Hasher implements Hash {
-
   async generateSalt(): Promise<string> {
     return await bcrypt.genSalt();
   }
@@ -12,9 +11,12 @@ export class Hasher implements Hash {
     return hashedPassword;
   }
 
-  async isHashed(data: string, original:string, salt: string) : Promise<boolean> {
+  async isHashed(
+    data: string,
+    original: string,
+    salt: string,
+  ): Promise<boolean> {
     const hashedPassword = await this.hash(data, salt);
     return hashedPassword === original;
   }
-
 }
