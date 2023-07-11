@@ -75,6 +75,7 @@ export class UserRepository implements User {
     loggedUser.lastName = userDto.lastName;
     loggedUser.email = userDto.email;
     loggedUser.userName = userDto.userName
+    loggedUser.userName = userDto.userName
     try {
       await loggedUser.save();
     } catch (e) {
@@ -91,8 +92,10 @@ export class UserRepository implements User {
     userDto.salt = hash.salt;
     userDto.password = hash.hashedPassword;
     let user: UserEntity;
+    let user: UserEntity;
     try {
       // save the user info
+      user = await this.userRepository.create(userDto).save();
       user = await this.userRepository.create(userDto).save();
       const address = userDto.address;
       address.userId = user.id;
@@ -106,12 +109,12 @@ export class UserRepository implements User {
           verificationCode: code,
         })
         .save();
-      VerificationMail.send(user.email, code)
-      return user
+      return 'successfully registered'
     } catch (error) {
       console.log(error)
       // check if account alreay exists
       if (error.code === 'ER_DUP_ENTRY') {
+        await this.userRepository.remove({ id: user.id })
         await this.userRepository.remove({ id: user.id })
         throw new DuplicateResouceFound('Account already exists');
       }
