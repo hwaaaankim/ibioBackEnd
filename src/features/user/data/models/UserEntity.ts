@@ -1,16 +1,10 @@
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { UserVerificationEntity } from './UserVerificationEntity';
 import { AddressEntity } from './AddressEntity';
+import { CommonEntity } from '../../../../database/CommonEntity';
 
 @Entity('users')
-export class UserEntity extends BaseEntity {
+export class UserEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -40,9 +34,6 @@ export class UserEntity extends BaseEntity {
 
   @Column('bool', { default: false })
   status: boolean;
-
-  @CreateDateColumn()
-  created: Date;
 
   @OneToOne(() => UserVerificationEntity, (ver) => ver.user)
   verification: UserVerificationEntity;

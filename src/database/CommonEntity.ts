@@ -1,9 +1,9 @@
-import { BaseEntity, DeleteDateColumn } from 'typeorm';
+import { BaseEntity, CreateDateColumn, DeleteDateColumn } from 'typeorm';
 
 export class CommonEntity extends BaseEntity {
-
   @DeleteDateColumn()
-  deletedAt: Date
-  // date
+  deletedAt: Date;
 
+  @CreateDateColumn()
+  created: Date;
 }

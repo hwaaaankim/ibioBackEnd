@@ -1,4 +1,3 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm/dist/interfaces/typeorm-options.interface';
 import { DataSource } from 'typeorm';
 
 export const AppDataSource = new DataSource({
