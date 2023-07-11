@@ -22,19 +22,16 @@ export class UserDto {
   lastName: string
 
   @IsNotEmpty()
+  @IsString()
+  @IsOptional()
+  userName: string
+
+  @IsNotEmpty()
   @IsEmail()
   email: string
 
-  @IsNotEmpty()
-  telephone: string
-
-  @IsNumber()
-  @IsOptional()
-  fax: number
-
   @IsEmpty()
   salt: string
-
 
   @IsNotEmpty()
   @IsString()

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class AddressDto {
 
@@ -25,6 +25,13 @@ export class AddressDto {
     @IsNotEmpty()
     @IsString()
     state: string;
+
+    @IsNotEmpty()
+    telephone: string
+  
+    @IsNumber()
+    @IsOptional()
+    fax: number
 
     userId: string
 

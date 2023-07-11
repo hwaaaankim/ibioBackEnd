@@ -8,6 +8,9 @@ export class UserEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column('varchar', { nullable: true })
+  userName: string;
+
   @Column('varchar', { nullable: false })
   firstName: string;
 
@@ -17,14 +20,8 @@ export class UserEntity extends CommonEntity {
   @Column('varchar', { nullable: false, default: 'USER' })
   role: string;
 
-  @Column('int', { unique: true, nullable: false })
-  fax: number;
-
   @Column('varchar', { unique: true, nullable: false })
   email: string;
-
-  @Column('varchar', { unique: true, nullable: false })
-  telephone: string;
 
   @Column('varchar', { unique: true, nullable: false })
   password: string;
