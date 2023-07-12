@@ -136,7 +136,7 @@ export class UserRepository implements User {
         throw new UnauthorizedException('Incorrect login credentials');
       }
       // check if user is activated
-      // const activated = await getRepository(UserVerificationEntity).findOne( { where: { userId: user.id, verified: true}})
+      // const activated = await AppDataSource.getRepository(UserVerificationEntity).findOne( { where: { userId: user.id, verified: true}})
       // if ( ! activated ) {
       //   user.remove
       //   user.salt = null

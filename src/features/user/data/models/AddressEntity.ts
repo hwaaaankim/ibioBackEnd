@@ -8,7 +8,7 @@ export class AddressEntity extends CommonEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('varchar')
+    @Column('varchar', { nullable: true })
     company: string;
 
     @Column('varchar', { unique: true, nullable: false })
