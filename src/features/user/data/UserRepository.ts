@@ -41,7 +41,7 @@ export class UserRepository implements User {
 
   async updatePassword(passwordDto: PasswordDto): Promise<boolean> {
     const userId = AuthenticatedUser.getInstance().userId;
-    const user: UserEntity = await await this.userRepository.findOne({
+    const user: UserEntity = await this.userRepository.findOne({
       where: { id: userId },
     });
     try {
