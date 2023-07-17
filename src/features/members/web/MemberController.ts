@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
@@ -19,9 +20,9 @@ import { AddMemberSocialAccountDto } from '../data/dtos/AddMemberSocialAccountDt
 import { UpdateMemberSocialAccountDto } from '../data/dtos/UpdateMemberSocialAccountDto';
 import { JwtAuthGuard } from '../../../util/auth/jwt/JwtAuthGuard';
 import { Role } from '../../../util/decorators/Role';
-import { MulterImageConfig } from 'src/util/file_upload/MulterConfig';
+import { MulterImageConfig } from '../../../util/file_upload/MulterConfig';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ValidationException } from 'src/util/exception/ValidationException';
+import { ValidationException } from '../../../util/exception/ValidationException';
 
 @Controller('members')
 export class MemberController {
@@ -37,15 +38,18 @@ export class MemberController {
   @UsePipes(ValidationPipe)
   @UseGuards(JwtAuthGuard)
   @Role(['admin'])
-  addMember(newMember: AddMemberDto): any {
-    return this.memberService.addMember(newMember);
+  addMember(@Body() addMemberDto: AddMemberDto): any {
+    return this.memberService.addMember(addMemberDto);
   }
 
   @Put(':id')
   @UsePipes(ValidationPipe)
   @UseGuards(JwtAuthGuard)
   @Role(['admin'])
-  updateMember(@Param('id') id: string, updatedMember: UpdateMemberDto): any {
+  updateMember(
+    @Param('id') id: string,
+    @Body() updatedMember: UpdateMemberDto,
+  ): any {
     return this.memberService.updateMember(id, updatedMember);
   }
 
@@ -73,7 +77,7 @@ export class MemberController {
   @UseGuards(JwtAuthGuard)
   @Role(['admin'])
   addMemberSocialAccount(
-    newSocailAccount: AddMemberSocialAccountDto,
+    @Body() newSocailAccount: AddMemberSocialAccountDto,
     @UploadedFile() icon: any,
   ): any {
     if (!icon) {
@@ -90,7 +94,7 @@ export class MemberController {
   @Role(['admin'])
   updateMemberSocialAccount(
     @Param('id') id: string,
-    memberSocialAccount: UpdateMemberSocialAccountDto,
+    @Body() memberSocialAccount: UpdateMemberSocialAccountDto,
     @UploadedFile() icon: any,
   ): any {
     if (icon) {

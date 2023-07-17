@@ -7,7 +7,9 @@ import { DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   app.setGlobalPrefix('api/v1');
+
   // for production
   app.enableCors();
   app.use(helmet());
@@ -19,8 +21,8 @@ async function bootstrap() {
   );
 
   const options = new DocumentBuilder()
-    .setTitle('AMS')
-    .setDescription('Electronic Aid Management System')
+    .setTitle('Shopping mall')
+    .setDescription('Shopping mall API\\"s')
     .setVersion('1.0.0')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'Bearer' },
