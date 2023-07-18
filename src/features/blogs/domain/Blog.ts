@@ -11,8 +11,6 @@ export interface Blog extends Category {
     filterBlogs(category: string, page?: number, limit?: number): any
     getBlogs(page?: number, limit?: number): any
     getBlogDetails(id: string): any
-    searchBlogs(title: string, page?: number, limit?: number): any
     deleteBlog(id: string): any
-    filterBlogsByCategory(name: string, page?: number, limit?: number): any
 
 }

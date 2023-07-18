@@ -34,10 +34,6 @@ export class BlogService implements Blog {
     getBlogDetails(id: string) {
         return this.repository.getBlogDetails(id);
     }
-
-    filterBlogsByCategory(name: string, page?: number, limit?: number): Promise<any> {
-        return this.repository.filterBlogsByCategory(name, page, limit)
-    }
     addBlog(blog: BlogDto): Promise<any> {
         return this.repository.addBlog(blog)
     }
@@ -50,13 +46,8 @@ export class BlogService implements Blog {
     getBlogs(page?: number, limit?: number): Promise<any> {
         return this.repository.getBlogs(page, limit)
     }
-    searchBlogs(name: string, page?: number, limit?: number): Promise<any> {
-        return this.repository.searchBlogs(name, page, limit)
-    }
     deleteBlog(id: string): Promise<any> {
         return this.repository.deleteBlog(id)
     }
-
-
 
 }

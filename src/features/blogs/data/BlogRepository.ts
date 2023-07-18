@@ -59,7 +59,7 @@ export class BlogRepository implements Blog {
   }
 
   async updateBlog(id: string, blogDto: BlogDto): Promise<any> {
-    
+    console.log("REPO")
     const blog: BlogEntity = await this.BlogRepository.findOne({
       where: { id: id },
       relations : ['image', 'category']
@@ -70,7 +70,7 @@ export class BlogRepository implements Blog {
       blog.title = blogDto.title;
       blog.content = blogDto.content;
       blog.postedById = blogDto.postedById;
-      blog.category.id = blogDto.categoryId;
+      
       // add images
       if (blogDto.image) {
         
@@ -134,45 +134,6 @@ export class BlogRepository implements Blog {
     });
     return blog;
   }
-
-  async filterBlogsByCategory(
-    name: string,
-    page?: number,
-    limit?: number,
-  ): Promise<any> {
-    const currentPage = page * 1 || 10;
-    const take = limit * 1;
-    const skip = (currentPage - 1) * limit || 0;
-    const allBlogs = await getRepository(this.entity).count();
-    const order = name === 'Price: Low to High' ? 'ASC' : 'DESC';
-    const blogs = await getRepository(this.entity).find({
-      skip: skip,
-      take: take,
-      order: { price: order },
-      relations: ['colors', 'images'],
-    });
-    return { allBlogs, blogs };
-  }
-
-  async searchBlogs(
-    title: string,
-    page?: number,
-    limit?: number,
-  ): Promise<any> {
-    const currentPage = page * 1 || 10;
-    const take = limit * 1;
-    const skip = (currentPage - 1) * limit || 0;
-    // const allBlogs = await getRepository(this.entity).count();
-    const blogs = await this.BlogRepository.find({
-      skip: skip,
-      take: take,
-      where: { name: Like(`%${title}%`) },
-      relations: ['colors', 'images'],
-    });
-    return { allBlogs: blogs.length, blogs };
-  }
-
-
   async addComment(commentDto: CommentDto ): Promise<any>{
     const comment = {
       fullName: commentDto.fullName,

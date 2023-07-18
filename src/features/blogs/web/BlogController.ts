@@ -20,7 +20,7 @@ export class BlogController {
 
     @Post()
     @UsePipes(ValidationPipe)
-    @UseInterceptors(FilesInterceptor('images', 1, MulterImageConfig))
+    @UseInterceptors(FilesInterceptor('image', 1, MulterImageConfig))
     @UseGuards(JwtAuthGuard)
     @Role(['admin'])
     addBlog(@Body() blog: BlogDto, @UploadedFile() image: any): any {
@@ -33,14 +33,16 @@ export class BlogController {
 
     @Put(':id')
     @UsePipes(ValidationPipe)
-    @UseInterceptors(FilesInterceptor('images', 1, MulterImageConfig))
+    @UseInterceptors(FilesInterceptor('image', 1, MulterImageConfig))
     @UseGuards(JwtAuthGuard)
     @Role(['admin'])
     updateBlog(@Param('id') id: string, @Body() blog: BlogDto, @UploadedFile() image: any): any {
         if (image) {
                 blog.image = image.filename;
         }
+        
         return this.service.updateBlog(id, blog)
+        
     }
 
     @Get('/categories/:id')
@@ -65,11 +67,6 @@ export class BlogController {
     @Role(['admin'])
     deleteBlog(@Param('id') id: string): any {
         return this.service.deleteBlog(id)
-    }
-
-    @Get('/price/:name')
-    filterBlogsByPrice(@Param('name') name: string): any {
-        return this.service.filterBlogsByPrice(name)
     }
 
     @Get(':id')
