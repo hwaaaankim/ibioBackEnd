@@ -7,6 +7,8 @@ import { UserModule } from './features/user/web/UserModule';
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { MemberModule } from './features/members/web/MemberModule';
+import { StateModule } from './features/states/web/StateModule';
+import { CurrencyModule } from './features/curriencies/web/CurrencyModule';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { MemberModule } from './features/members/web/MemberModule';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     UserModule,
     MemberModule,
+    StateModule,
+    CurrencyModule,
   ],
   controllers: [AppController],
   providers: [],

@@ -1,10 +1,12 @@
 import { ProductRepository } from './../features/products/data/ProductRepository';
-import { FaqRepository } from 'src/features/freqAskedQuens/data/FaqRepository';
-import { BlogRepository } from 'src/features/blogs/data/BlogRepository';
-import { TestimonyRepository } from 'src/features/testimonials/data/TestimonyRepository';
+import { FaqRepository } from './../features/freqAskedQuens/data/FaqRepository';
+import { BlogRepository } from './../features/blogs/data/BlogRepository';
+import { TestimonyRepository } from './../features/testimonials/data/TestimonyRepository';
 import { SystemErrorException } from './../util/exception/SystemErrorException';
 import { UserRepository } from './../features/user/data/UserRepository';
 import { MemberRepository } from './../features/members/data/MemberRepository';
+import { StateRepository } from './../features/states/data/StateRepository';
+import { CurrencyRepository } from './../features/curriencies/data/CurrencyRepository';
 
 export class DatabaseFactory {
   static getRepository(feature: string): any {
@@ -22,14 +24,20 @@ export class DatabaseFactory {
         break;
 
       case 'FAQS':
-        repository = new FaqRepository()
-        break
+        repository = new FaqRepository();
+        break;
       case 'BLOGS':
-        repository = new BlogRepository()
-        break
+        repository = new BlogRepository();
+        break;
       case 'TESTIMONIALS':
-        repository = new TestimonyRepository()
-        break
+        repository = new TestimonyRepository();
+        break;
+      case 'STATE':
+        repository = new StateRepository();
+        break;
+      case 'CURRENCY':
+        repository = new CurrencyRepository();
+        break;
       default:
         throw new SystemErrorException('repository not found');
     }
