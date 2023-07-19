@@ -89,10 +89,7 @@ export class UserController {
   @UsePipes(ValidationPipe)
   async register(@Body() userDto: UserDto): Promise<any> {
     const user = await this.userService.register(userDto);
-    if (user) {
-      VerificationMail.send(user.email, user.verification.verificationCode)
-    }
-    return user;
+    return user
   }
 
   @Put('/verify')

@@ -46,6 +46,8 @@ export class ProductRepository implements Product {
       return true;
     } catch (e) {}
   }
+
+  
   async deleteCategory(id: string): Promise<any> {
     console.log('hey man');
     const category: CategoryEntity = await AppDataSource.getRepository(
@@ -61,6 +63,8 @@ export class ProductRepository implements Product {
       throw new SystemErrorException();
     }
   }
+
+
   async getCategories(): Promise<any> {
     return await AppDataSource.getRepository(CategoryEntity).find();
   }

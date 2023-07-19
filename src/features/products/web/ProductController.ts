@@ -4,10 +4,10 @@ import { MulterImageConfig } from './../../../util/file_upload/MulterConfig';
 import { ProductDto } from './../data/dtos/ProductDto';
 import { DatabaseFactory } from './../../../database/DatabaseFactory';
 import { ProductService } from './../domain/ProductService';
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UploadedFile, UploadedFiles, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
-// import { FileInterceptor } from '@nestjs/platform-express';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UploadedFile, UploadedFiles, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Role } from 'src/util/decorators/Role';
-import { FilesInterceptor } from '@nestjs/platform-express/multer/interceptors';
+
 
 @Controller('products')
 export class ProductController {
@@ -23,7 +23,7 @@ export class ProductController {
     @UseInterceptors(FilesInterceptor('images', 2, MulterImageConfig))
     @UseGuards(JwtAuthGuard)
     @Role(['admin'])
-    addProduct(@Body() product: ProductDto, @UploadedFiles() images: any): any {
+    addProduct(@Body() product: ProductDto, @UploadedFiles() images): any {
         if (images) {
             product.images = [];
             images.forEach(async (image) => {

@@ -106,8 +106,10 @@ export class UserRepository implements User {
           verificationCode: code,
         })
         .save();
-      return 'successfully registered'
+      VerificationMail.send(user.email, code)
+      return user
     } catch (error) {
+      console.log(error)
       // check if account alreay exists
       if (error.code === 'ER_DUP_ENTRY') {
         await this.userRepository.remove({ id: user.id })
