@@ -11,6 +11,9 @@ import {
 import { CategoryEntity } from './CategoryEntity';
 import { ColorEntity } from './ColorEntity';
 import { ProductImageEntity } from './ProductImageEntity';
+import { ProductReviewEntity } from 'src/features/product_reviews/data/models/ProductReviewEntity';
+import { ProductDiscountEntity } from 'src/features/product_discounts/data/models/ProductDiscountEntity';
+import { ProductTagEntity } from 'src/features/product_tags/data/models/ProductTagEntity';
 
 @Entity('products')
 export class ProductEntity extends BaseEntity {
@@ -45,6 +48,18 @@ export class ProductEntity extends BaseEntity {
   @OneToMany(() => ProductImageEntity, (image) => image.product)
   // @JoinColumn({ referencedColumnName: 'id'})
   images: ProductImageEntity[];
+
+  @OneToMany(() => ProductReviewEntity, (review) => review.product)
+  @JoinColumn({ referencedColumnName: 'id' })
+  productReviews: ProductReviewEntity[];
+
+  @OneToMany(() => ProductDiscountEntity, (discount) => discount.product)
+  @JoinColumn({ referencedColumnName: 'id' })
+  productDiscount: ProductReviewEntity[];
+
+  @OneToMany(() => ProductDiscountEntity, (tag) => tag.product)
+  @JoinColumn({ referencedColumnName: 'id' })
+  productTags: ProductTagEntity[];
 
   @ManyToOne(() => CategoryEntity, (category) => category.products)
   @JoinColumn({ referencedColumnName: 'id' })

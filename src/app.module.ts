@@ -9,6 +9,9 @@ import { PassportModule } from '@nestjs/passport';
 import { MemberModule } from './features/members/web/MemberModule';
 import { StateModule } from './features/states/web/StateModule';
 import { CurrencyModule } from './features/curriencies/web/CurrencyModule';
+import { TagModule } from './features/tags/web/TagModule';
+import { ProductReviewModule } from './features/product_reviews/web/ProductReviewModule';
+import { ProductDiscountModule } from './features/product_discounts/web/ProductDiscountModule';
 
 @Module({
   imports: [
@@ -21,6 +24,9 @@ import { CurrencyModule } from './features/curriencies/web/CurrencyModule';
     MemberModule,
     StateModule,
     CurrencyModule,
+    TagModule,
+    ProductReviewModule,
+    ProductDiscountModule,
   ],
   controllers: [AppController],
   providers: [],

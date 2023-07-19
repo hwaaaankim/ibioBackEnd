@@ -9,11 +9,12 @@ export const AppDataSource = new DataSource({
   database: 'shopping_mall',
   synchronize: true,
   logging: true,
-  connectTimeout: 60000,
   entities: [
     'dist/**/*.entity{.ts,.js}',
     'dist/**/data/models/*Entity{.ts,.js}',
   ],
   subscribers: [],
-  migrations: [],
+  migrations: ['dist/database/migrations/*.{.ts,.js}'],
+  migrationsTableName: 'migrations_history',
+  migrationsRun: true,
 });
