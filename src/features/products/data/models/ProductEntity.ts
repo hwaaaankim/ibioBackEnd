@@ -5,12 +5,10 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { CategoryEntity } from './CategoryEntity';
-import { ColorEntity } from './ColorEntity';
-import { ProductImageEntity } from './ProductImageEntity';
+import { ProductDetailEntity } from './ProductDetailEntity';
 
 @Entity('products')
 export class ProductEntity extends BaseEntity {
@@ -20,49 +18,23 @@ export class ProductEntity extends BaseEntity {
   @Column('varchar', { nullable: false })
   name: string;
 
+  @Column('varchar', { nullable: false})
+  code: string
+
   @Column('varchar', { nullable: false })
   brand: string;
 
   @Column('text', { nullable: false })
   description: string;
 
-  @Column('double', { nullable: false })
-  price: number;
-
-  @Column('int', { nullable: true, default: 1 })
-  stock: number;
-
-  @Column('varchar', { nullable: false, default: 'NEW' })
-  condition: string;
-
   @Column('varchar', { nullable: false })
-  shopId: string;
-
-  @OneToMany(() => ColorEntity, (color) => color.product)
-  // @JoinColumn({ referencedColumnName: 'id'})
-  colors: ColorEntity[];
-
-  @OneToMany(() => ProductImageEntity, (image) => image.product)
-  // @JoinColumn({ referencedColumnName: 'id'})
-  images: ProductImageEntity[];
+  categoryId: string
 
   @ManyToOne(() => CategoryEntity, (category) => category.products)
-  @JoinColumn({ referencedColumnName: 'id' })
+  @JoinColumn({ referencedColumnName: 'categoryId' })
   category: CategoryEntity;
 
-  // OPTIONAL CLOSING
-  @Column('varchar', { nullable: true })
-  size: string;
-
-  @Column('varchar', { nullable: true })
-  motor_type: string;
-
-  @Column('varchar', { nullable: true })
-  year: string;
-
-  @Column('varchar', { nullable: true })
-  transmission: string;
-
-  @Column('varchar', { nullable: true })
-  fuel: string;
+  @OneToMany(() => ProductDetailEntity, (pd) => pd.product, { onDelete: 'CASCADE' })
+  @JoinColumn()
+  productDetails: ProductDetailEntity
 }

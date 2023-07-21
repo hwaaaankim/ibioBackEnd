@@ -20,46 +20,6 @@ export class ProductDto {
     @IsString()
     category: string
 
-    @IsNumberString()
-    @IsOptional()
-    stock: number
-
-    @IsNotEmpty()
-    @IsString()
-    @IsOptional()
-    condition: string
-
-    @IsEmpty()
-    shopId: string
-
-    @IsNotEmpty()
-    @IsNumberString()
-    price: number
-
-    images: any[]
-
-    @IsOptional()
-    @IsString()
-    size: string
-
-    colors: string
-
-    @IsOptional()
-    @IsString()
-    motor_type: string
-
-    @IsOptional()
-    @IsString()
-    transmission: string
-
-    @IsOptional()
-    @IsString()
-    year: string
-
-    @IsOptional()
-    @IsString()
-    fuel: string
-
-
+    code: string
 
 }

@@ -4,17 +4,14 @@ import { ProductEntity } from './models/ProductEntity';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 import { Product } from './../domain/Product';
 import { ProductDto } from './dtos/ProductDto';
-import { Like, getRepository } from 'typeorm';
+import { Like } from 'typeorm';
 import { DataNotFoundException } from '../../../util/exception/DataNotFoundException';
 import { CategoryDto } from './dtos/CategoryDto';
 import { CategoryEntity } from './models/CategoryEntity';
-import { ColorEntity } from './models/ColorEntity';
-import { ProductImageEntity } from './models/ProductImageEntity';
-import * as fs from 'fs';
-import { join } from 'path';
 import { AppDataSource } from '../../../database/config/TypeOrmConfig';
 
 export class ProductRepository implements Product {
+
   entity: EntityClassOrSchema = ProductEntity;
   private productRepository = AppDataSource.getRepository(this.entity);
 
@@ -44,10 +41,10 @@ export class ProductRepository implements Product {
       category.name = categoryDto.category;
       category.save();
       return true;
-    } catch (e) {}
+    } catch (e) { }
   }
 
-  
+
   async deleteCategory(id: string): Promise<any> {
     console.log('hey man');
     const category: CategoryEntity = await AppDataSource.getRepository(
@@ -69,45 +66,19 @@ export class ProductRepository implements Product {
     return await AppDataSource.getRepository(CategoryEntity).find();
   }
 
-  async getProductDetails(id: string): Promise<any> {
+  async getProduct(id: string): Promise<any> {
     const product = await this.productRepository.findOne({
       where: { id: id },
-      relations: ['colors', 'images'],
+      relations: ['productDetails', 'colors', 'images'],
     });
     return product;
   }
 
   async addProduct(product: ProductDto): Promise<boolean> {
+    product.code = this.generateProductCode()
     try {
       const created = await this.productRepository.create(product).save();
-      // add colors
-      console.log(typeof product.colors);
-      if (product.colors) {
-        const colors = JSON.parse(product.colors);
-        colors.forEach(async (color) => {
-          await AppDataSource.getRepository(ColorEntity)
-            .create({
-              productId: created.id,
-              color: color,
-            })
-            .save();
-        });
-      }
-      // add images
-      if (product.images) {
-        product.images.forEach(async (image) => {
-          await AppDataSource.getRepository(ProductImageEntity)
-            .create({
-              productId: created.id,
-              image: image,
-            })
-            .save();
-        });
-      }
-      return this.productRepository.findOne({
-        where: { id: created.id },
-        relations: ['colors', 'images'],
-      });
+      return created;
     } catch (error) {
       console.log(error);
       if (error.code === 'ER_DUP_ENTRY') {
@@ -125,37 +96,8 @@ export class ProductRepository implements Product {
 
     try {
       product.name = productDto.name;
-      product.price = productDto.price;
-      product.condition = productDto.condition;
-      product.stock = productDto.stock;
-      if (productDto.size) product.size = productDto.size;
-      if (product.colors) {
-        const colors = JSON.parse(productDto.colors);
-        colors.forEach(async (color) => {
-          await AppDataSource.getRepository(ColorEntity)
-            .create({
-              productId: product.id,
-              color: color,
-            })
-            .save();
-        });
-      }
-      // add images
-      if (productDto.images) {
-        productDto.images.forEach(async (image) => {
-          await AppDataSource.getRepository(ProductImageEntity)
-            .create({
-              productId: product.id,
-              image: image,
-            })
-            .save();
-        });
-      }
-      if (productDto.motor_type) product.motor_type = productDto.motor_type;
-      if (productDto.year) product.year = productDto.year;
-      if (productDto.transmission)
-        product.transmission = productDto.transmission;
-      if (productDto.fuel) product.fuel = productDto.fuel;
+      product.brand = productDto.brand;
+      product.categoryId = productDto.category;
       const updated = await product.save();
       return this.productRepository.findOne({
         where: { id: updated.id },
@@ -197,7 +139,7 @@ export class ProductRepository implements Product {
     const products = await this.productRepository.find({
       skip: skip,
       take: take,
-      relations: ['colors', 'images'],
+      relations: ['productDetail', 'colors', 'images'],
     });
     return { allProducts, products };
   }
@@ -225,28 +167,10 @@ export class ProductRepository implements Product {
     const product: ProductEntity = await this.productRepository.findOne({
       where: {
         id: id,
-      },
-      relations: ['images'],
+      }
     });
     try {
-      try {
-        await getRepository(ColorEntity).delete({ productId: id });
-        await getRepository(ProductImageEntity).delete({ productId: id });
-        product.images.forEach((image) => {
-          fs.unlink(
-            join(process.cwd() + '/uploads/images/' + image.image),
-            (err) => {
-              if (err) {
-                console.error(err);
-                //  return err;
-              }
-            },
-          );
-        });
-      } catch (e) {
-        console.log('no colors or images found I guess');
-      }
-      product.remove();
+      product.remove()
       return true;
     } catch (error) {
       throw new SystemErrorException();
@@ -261,14 +185,22 @@ export class ProductRepository implements Product {
     const currentPage = page * 1 || 10;
     const take = limit * 1;
     const skip = (currentPage - 1) * limit || 0;
-    const allProducts = await getRepository(this.entity).count();
+    const allProducts = await AppDataSource.getRepository(this.entity).count();
     const order = name === 'Price: Low to High' ? 'ASC' : 'DESC';
-    const products = await getRepository(this.entity).find({
+    const products = await AppDataSource.getRepository(this.entity).find({
       skip: skip,
       take: take,
       order: { price: order },
       relations: ['colors', 'images'],
     });
     return { allProducts, products };
+  }
+
+
+  private generateProductCode() {
+    const code = (Math.floor(Math.random() * 1000000) + 1000000)
+      .toString()
+      .substring(1);
+    return code;
   }
 }

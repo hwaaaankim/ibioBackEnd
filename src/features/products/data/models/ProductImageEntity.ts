@@ -1,5 +1,6 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { ProductEntity } from "./ProductEntity";
+import { ProductDetailEntity } from "./ProductDetailEntity";
 
 @Entity('product_images')
 export class ProductImageEntity extends BaseEntity {
@@ -13,8 +14,7 @@ export class ProductImageEntity extends BaseEntity {
     @Column('varchar', { nullable: false} )
     image: string
 
-    @ManyToOne(() => ProductEntity, prod => prod.colors)
-    // @JoinColumn({ referencedColumnName: 'id'})
-    product: ProductEntity
+    @ManyToOne(() => ProductDetailEntity, prod => prod.colors)
+    productDetails: ProductDetailEntity
 
 }

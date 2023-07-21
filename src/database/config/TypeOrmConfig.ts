@@ -9,7 +9,6 @@ export const AppDataSource = new DataSource({
   database: 'shopping_mall',
   synchronize: true,
   logging: true,
-  connectTimeout: 60000,
   entities: [
     'dist/**/*.entity{.ts,.js}',
     'dist/**/data/models/*Entity{.ts,.js}',

@@ -1,5 +1,6 @@
 import { ProductDto } from "../data/dtos/ProductDto";
 import { Category } from "./Category";
+import { ProductDetail } from "./ProductDetail";
 
 export interface Product extends Category {
 
@@ -7,7 +8,7 @@ export interface Product extends Category {
     updateProduct(id: string, product: ProductDto): any
     filterProducts(category: string, page?: number, limit?: number): any
     getProducts(page?: number, limit?: number): any
-    getProductDetails(id: string): any
+    getProduct(id: string): any
     searchProducts(title: string, page?: number, limit?: number): any
     deleteProduct(id: string): any
     filterProductsByPrice(name: string, page?: number, limit?: number): any
