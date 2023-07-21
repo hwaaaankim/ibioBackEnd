@@ -5,10 +5,11 @@ https://docs.nestjs.com/modules
 */
 
 import { Module } from '@nestjs/common';
+import { ProductDetailController } from './ProductDetailController';
 
 @Module({
     imports: [],
-    controllers: [ ProductController, CategoryController ],
+    controllers: [ ProductController, CategoryController, ProductDetailController ],
     providers: [],
 })
 export class ProductModule {}

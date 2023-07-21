@@ -7,6 +7,7 @@ import { ProductService } from './../domain/ProductService';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UploadedFile, UploadedFiles, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Role } from 'src/util/decorators/Role';
+import { ProductDetailDto } from '../data/dtos/ProductDetailDto';
 
 
 @Controller('products')
@@ -20,31 +21,19 @@ export class ProductController {
 
     @Post()
     @UsePipes(ValidationPipe)
-    @UseInterceptors(FilesInterceptor('images', 2, MulterImageConfig))
+    // @UseInterceptors(FilesInterceptor('images', 2, MulterImageConfig))
     @UseGuards(JwtAuthGuard)
     @Role(['admin'])
-    addProduct(@Body() product: ProductDto, @UploadedFiles() images): any {
-        if (images) {
-            product.images = [];
-            images.forEach(async (image) => {
-                product.images.push(image.filename)
-            });
-        }
-        return this.service.addProduct(product)
+    addProduct(@Body() product: ProductDto): any {
+       return this.service.addProduct(product)
     }
 
     @Put(':id')
     @UsePipes(ValidationPipe)
-    @UseInterceptors(FilesInterceptor('images', 2, MulterImageConfig))
+    // @UseInterceptors(FilesInterceptor('images', 2, MulterImageConfig))
     @UseGuards(JwtAuthGuard)
     @Role(['admin'])
-    updateProduct(@Param('id') id: string, @Body() product: ProductDto, @UploadedFiles() images: any): any {
-        if (images) {
-            product.images = [];
-            images.forEach(async (image) => {
-                product.images.push(image.filename)
-            });
-        }
+    updateProduct(@Param('id') id: string, @Body() product: ProductDto): any {
         return this.service.updateProduct(id, product)
     }
 

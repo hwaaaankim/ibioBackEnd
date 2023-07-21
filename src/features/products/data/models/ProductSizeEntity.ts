@@ -11,13 +11,13 @@ export class ProductSizeEntity extends CommonEntity {
     @Column('varchar', { nullable: false })
     productDetailId: string
 
-    @Column('number', { nullable: false })
+    @Column('int', { nullable: false })
     size: number
 
-    @Column('number', { nullable: false })
+    @Column('int', { nullable: false })
     quantity: number
 
-    @Column('number', { nullable: true })
+    @Column('int', { nullable: true })
     price: number
 
     @ManyToOne(() => ProductDetailEntity, prod => prod.colors)

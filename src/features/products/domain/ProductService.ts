@@ -24,8 +24,8 @@ export class ProductService implements Product {
         return this.repository.getCategories()
     }
 
-    getProductDetails(id: string) {
-        return this.repository.getProductDetails(id);
+    getProduct(id: string) {
+        return this.repository.getProduct(id);
     }
 
     filterProductsByPrice(name: string, page?: number, limit?: number): Promise<any> {

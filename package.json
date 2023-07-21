@@ -53,6 +53,7 @@
     "rxjs": "^7.8.1",
     "save": "^2.9.0",
     "save-dev": "^0.0.1-security",
+    "sharp": "^0.32.3",
     "typeorm": "^0.3.17"
   },
   "devDependencies": {

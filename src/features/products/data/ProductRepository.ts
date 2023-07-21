@@ -69,7 +69,7 @@ export class ProductRepository implements Product {
   async getProduct(id: string): Promise<any> {
     const product = await this.productRepository.findOne({
       where: { id: id },
-      relations: ['productDetails', 'colors', 'images'],
+      relations: ['productDetails', 'colors', 'images', 'discounts', 'reviews', 'tags', 'productDetails.colors', 'productDetails.images', 'productDetails.sizes'],
     });
     return product;
   }
@@ -139,7 +139,7 @@ export class ProductRepository implements Product {
     const products = await this.productRepository.find({
       skip: skip,
       take: take,
-      relations: ['productDetail', 'colors', 'images'],
+      relations: ['productDetails', 'colors', 'images', 'discounts', 'reviews', 'tags', 'productDetails.colors', 'productDetails.images', 'productDetails.sizes'],
     });
     return { allProducts, products };
   }

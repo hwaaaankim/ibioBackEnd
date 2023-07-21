@@ -12,7 +12,7 @@ import {
   import { ProductImageEntity } from './ProductImageEntity';
 import { CommonEntity } from 'src/database/CommonEntity';
 import { ProductEntity } from './ProductEntity';
-import { ProductSizeEntity } from './ProductSize';
+import { ProductSizeEntity } from './ProductSizeEntity';
   
   @Entity('products')
   export class ProductDetailEntity extends CommonEntity {
@@ -38,9 +38,9 @@ import { ProductSizeEntity } from './ProductSize';
     @Column('varchar', { nullable: false, default: 'NEW' })
     condition: string;
   
-    // OPTIONAL CLOSING
-    @Column('varchar', { nullable: true })
-    size: string;
+    // // OPTIONAL CLOSING
+    // @Column('varchar', { nullable: true })
+    // size: string;
 
     @ManyToOne(() => ProductEntity, (product) => product.productDetails)
     @JoinColumn()

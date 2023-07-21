@@ -12,6 +12,7 @@ import { ProductReviewRepository } from './../features/product_reviews/data/Prod
 import { ProductReturnRepository } from './../features/product_returns/data/ProductReturnRepository';
 import { ProductTagRepository } from './../features/product_tags/data/ProductTagRepository';
 import { WishlistRepository } from './../features/wishlists/data/WishListRepository';
+import { ProductDetailRepository } from 'src/features/products/data/ProductDetailRepository';
 
 export class DatabaseFactory {
   static getRepository(feature: string): any {
@@ -59,6 +60,9 @@ export class DatabaseFactory {
         break;
       case 'WISHLIST':
         repository = new WishlistRepository();
+        break;
+      case 'PRODUCT_DETAILS':
+        repository = new ProductDetailRepository();
         break;
       default:
         throw new SystemErrorException('Repository not found.');

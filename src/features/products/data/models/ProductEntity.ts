@@ -34,10 +34,22 @@ export class ProductEntity extends BaseEntity {
   categoryId: string
 
   @ManyToOne(() => CategoryEntity, (category) => category.products)
-  @JoinColumn({ referencedColumnName: 'categoryId' })
+  @JoinColumn({ referencedColumnName: 'id' })
   category: CategoryEntity;
 
   @OneToMany(() => ProductDetailEntity, (pd) => pd.product, { onDelete: 'CASCADE' })
   @JoinColumn()
   productDetails: ProductDetailEntity
+
+  @OneToMany(() => ProductDiscountEntity, (pd) => pd.product, { onDelete: 'CASCADE' })
+  @JoinColumn()
+  discounts: ProductDiscountEntity
+
+  @OneToMany(() => ProductReviewEntity, (pd) => pd.product, { onDelete: 'CASCADE' })
+  @JoinColumn()
+  reviews: ProductDetailEntity
+
+  @OneToMany(() => ProductTagEntity, (pd) => pd.product, { onDelete: 'CASCADE' })
+  @JoinColumn()
+  tags: ProductDetailEntity
 }

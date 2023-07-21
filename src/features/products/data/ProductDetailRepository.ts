@@ -11,7 +11,7 @@ import { ProductColorEntity } from "./models/ProductColorEntity";
 import { ProductImageEntity } from "./models/ProductImageEntity";
 import * as fs from 'fs';
 import { join } from 'path';
-import { ProductSizeEntity } from "./models/ProductSize";
+import { ProductSizeEntity } from "./models/ProductSizeEntity";
 
 export class ProductDetailRepository implements ProductDetail {
 
