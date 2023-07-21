@@ -20,7 +20,7 @@ export class ProductTagEntity extends CommonEntity {
   @Column('varchar', { nullable: false })
   tagId: string;
 
-  @ManyToOne(() => ProductEntity, (product) => product.productTags)
+  @ManyToOne(() => ProductEntity, (product) => product.tags)
   @JoinColumn({ referencedColumnName: 'id' })
   product: ProductEntity;
 

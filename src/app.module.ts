@@ -12,6 +12,7 @@ import { CurrencyModule } from './features/curriencies/web/CurrencyModule';
 import { TagModule } from './features/tags/web/TagModule';
 import { ProductReviewModule } from './features/product_reviews/web/ProductReviewModule';
 import { ProductDiscountModule } from './features/product_discounts/web/ProductDiscountModule';
+import { WishlistModule } from './features/wishlists/web/wishlistModule';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ProductDiscountModule } from './features/product_discounts/web/ProductD
     TagModule,
     ProductReviewModule,
     ProductDiscountModule,
+    WishlistModule,
   ],
   controllers: [AppController],
   providers: [],

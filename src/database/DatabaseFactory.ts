@@ -7,10 +7,11 @@ import { UserRepository } from './../features/user/data/UserRepository';
 import { MemberRepository } from './../features/members/data/MemberRepository';
 import { StateRepository } from './../features/states/data/StateRepository';
 import { CurrencyRepository } from './../features/curriencies/data/CurrencyRepository';
-import { TagRepository } from 'src/features/tags/data/TagRepository';
-import { ProductReviewRepository } from 'src/features/product_reviews/data/ProductReviewRepository';
-import { ProductReturnRepository } from 'src/features/product_returns/data/ProductReturnRepository';
-import { ProductTagRepository } from 'src/features/product_tags/data/ProductTagRepository';
+import { TagRepository } from './../features/tags/data/TagRepository';
+import { ProductReviewRepository } from './../features/product_reviews/data/ProductReviewRepository';
+import { ProductReturnRepository } from './../features/product_returns/data/ProductReturnRepository';
+import { ProductTagRepository } from './../features/product_tags/data/ProductTagRepository';
+import { WishlistRepository } from './../features/wishlists/data/WishListRepository';
 
 export class DatabaseFactory {
   static getRepository(feature: string): any {
@@ -55,6 +56,9 @@ export class DatabaseFactory {
         break;
       case 'PRODUCT_DISCOUNT':
         repository = new ProductReviewRepository();
+        break;
+      case 'WISHLIST':
+        repository = new WishlistRepository();
         break;
       default:
         throw new SystemErrorException('Repository not found.');

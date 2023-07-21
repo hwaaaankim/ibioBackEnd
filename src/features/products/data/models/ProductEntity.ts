@@ -51,15 +51,15 @@ export class ProductEntity extends BaseEntity {
 
   @OneToMany(() => ProductReviewEntity, (review) => review.product)
   @JoinColumn({ referencedColumnName: 'id' })
-  productReviews: ProductReviewEntity[];
+  reviews: ProductReviewEntity[];
 
   @OneToMany(() => ProductDiscountEntity, (discount) => discount.product)
   @JoinColumn({ referencedColumnName: 'id' })
-  productDiscount: ProductReviewEntity[];
+  discounts: ProductDiscountEntity[];
 
   @OneToMany(() => ProductDiscountEntity, (tag) => tag.product)
   @JoinColumn({ referencedColumnName: 'id' })
-  productTags: ProductTagEntity[];
+  tags: ProductTagEntity[];
 
   @ManyToOne(() => CategoryEntity, (category) => category.products)
   @JoinColumn({ referencedColumnName: 'id' })

@@ -25,7 +25,7 @@ export class ProductReviewEntity extends CommonEntity {
   @Column('int', { nullable: false })
   rating: number;
 
-  @ManyToOne(() => ProductEntity, (product) => product.productReviews)
+  @ManyToOne(() => ProductEntity, (product) => product.reviews)
   @JoinColumn({ referencedColumnName: 'id' })
   product: ProductEntity;
 }

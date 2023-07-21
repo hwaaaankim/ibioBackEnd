@@ -22,7 +22,7 @@ export class ProductDiscountEntity extends CommonEntity {
   @Column('date', { nullable: false })
   validUntil: Date;
 
-  @ManyToOne(() => ProductEntity, (product) => product.productDiscount)
+  @ManyToOne(() => ProductEntity, (product) => product.discounts)
   @JoinColumn({ referencedColumnName: 'id' })
   product: ProductEntity;
 }
