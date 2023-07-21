@@ -9,6 +9,9 @@ import {
 } from 'typeorm';
 import { CategoryEntity } from './CategoryEntity';
 import { ProductDetailEntity } from './ProductDetailEntity';
+import { ProductReviewEntity } from 'src/features/product_reviews/data/models/ProductReviewEntity';
+import { ProductDiscountEntity } from 'src/features/product_discounts/data/models/ProductDiscountEntity';
+import { ProductTagEntity } from 'src/features/product_tags/data/models/ProductTagEntity';
 
 @Entity('products')
 export class ProductEntity extends BaseEntity {
@@ -27,8 +30,6 @@ export class ProductEntity extends BaseEntity {
   @Column('text', { nullable: false })
   description: string;
 
-  @Column('varchar', { nullable: false })
-  categoryId: string
 
   @ManyToOne(() => CategoryEntity, (category) => category.products)
   @JoinColumn({ referencedColumnName: 'categoryId' })

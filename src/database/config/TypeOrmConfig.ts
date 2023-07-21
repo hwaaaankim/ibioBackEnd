@@ -14,5 +14,7 @@ export const AppDataSource = new DataSource({
     'dist/**/data/models/*Entity{.ts,.js}',
   ],
   subscribers: [],
-  migrations: [],
+  migrations: ['dist/database/migrations/*.{.ts,.js}'],
+  migrationsTableName: 'migrations_history',
+  migrationsRun: true,
 });

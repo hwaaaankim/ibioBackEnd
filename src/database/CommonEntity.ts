@@ -5,5 +5,5 @@ export class CommonEntity extends BaseEntity {
   deletedAt: Date;
 
   @CreateDateColumn()
-  created: Date;
+  createdAt: Date;
 }

@@ -7,6 +7,11 @@ import { UserRepository } from './../features/user/data/UserRepository';
 import { MemberRepository } from './../features/members/data/MemberRepository';
 import { StateRepository } from './../features/states/data/StateRepository';
 import { CurrencyRepository } from './../features/curriencies/data/CurrencyRepository';
+import { TagRepository } from './../features/tags/data/TagRepository';
+import { ProductReviewRepository } from './../features/product_reviews/data/ProductReviewRepository';
+import { ProductReturnRepository } from './../features/product_returns/data/ProductReturnRepository';
+import { ProductTagRepository } from './../features/product_tags/data/ProductTagRepository';
+import { WishlistRepository } from './../features/wishlists/data/WishListRepository';
 
 export class DatabaseFactory {
   static getRepository(feature: string): any {
@@ -22,7 +27,6 @@ export class DatabaseFactory {
       case 'MEMBER':
         repository = new MemberRepository();
         break;
-
       case 'FAQS':
         repository = new FaqRepository();
         break;
@@ -38,8 +42,26 @@ export class DatabaseFactory {
       case 'CURRENCY':
         repository = new CurrencyRepository();
         break;
+      case 'TAG':
+        repository = new TagRepository();
+        break;
+      case 'PRODUCT_TAG':
+        repository = new ProductTagRepository();
+        break;
+      case 'PRODUCT_REVIEW':
+        repository = new ProductReviewRepository();
+        break;
+      case 'PRODUCT_RETURN':
+        repository = new ProductReturnRepository();
+        break;
+      case 'PRODUCT_DISCOUNT':
+        repository = new ProductReviewRepository();
+        break;
+      case 'WISHLIST':
+        repository = new WishlistRepository();
+        break;
       default:
-        throw new SystemErrorException('repository not found');
+        throw new SystemErrorException('Repository not found.');
     }
     return repository;
   }

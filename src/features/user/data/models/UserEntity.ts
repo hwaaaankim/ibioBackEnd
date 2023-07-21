@@ -1,7 +1,15 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { UserVerificationEntity } from './UserVerificationEntity';
 import { AddressEntity } from './AddressEntity';
 import { CommonEntity } from '../../../../database/CommonEntity';
+import { Wishlist } from 'src/features/wishlists/domain/Wishlist';
+import { WishlistEntity } from 'src/features/wishlists/data/models/WishlistEntity';
 
 @Entity('users')
 export class UserEntity extends CommonEntity {
@@ -37,4 +45,7 @@ export class UserEntity extends CommonEntity {
 
   @OneToOne(() => AddressEntity, (add) => add.user)
   address: AddressEntity;
+
+  @OneToMany(() => WishlistEntity, (wishlist) => wishlist.user)
+  wishlists: WishlistEntity[];
 }
