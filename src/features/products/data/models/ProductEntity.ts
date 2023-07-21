@@ -30,6 +30,8 @@ export class ProductEntity extends BaseEntity {
   @Column('text', { nullable: false })
   description: string;
 
+  @Column('varchar', { nullable: false })
+  categoryId: string
 
   @ManyToOne(() => CategoryEntity, (category) => category.products)
   @JoinColumn({ referencedColumnName: 'categoryId' })
