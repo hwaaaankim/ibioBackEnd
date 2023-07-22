@@ -22,8 +22,8 @@ export class BlogDto {
     @ApiProperty({type: String, description: 'postedById - is required' })
     postedById: string
 
-    // @IsNotEmpty()
-    @IsOptional()
+    @IsNotEmpty()
+    // @IsOptional()
     @ApiProperty({type: String, description: 'image - is required' })
     image: any
 
