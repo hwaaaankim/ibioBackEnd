@@ -92,7 +92,6 @@ export class UserRepository implements User {
     userDto.salt = hash.salt;
     userDto.password = hash.hashedPassword;
     let user: UserEntity;
-    let user: UserEntity;
     try {
       // save the user info
       user = await this.userRepository.create(userDto).save();
