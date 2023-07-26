@@ -18,7 +18,7 @@ export class ProductDto {
 
     @IsNotEmpty()
     @IsString()
-    category: string
+    categoryId: string
 
     code: string
 

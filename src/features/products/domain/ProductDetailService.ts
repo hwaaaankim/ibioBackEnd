@@ -10,19 +10,19 @@ export class ProductDetailService implements ProductDetail {
     }
 
     addProductDetail(id: string, productDetailDto: ProductDetailDto) {
-       return this.addProductDetail(id, productDetailDto)
+       return this.repo.addProductDetail(id, productDetailDto)
     }
 
     updateProductDetail(id: string, productDetailDto: ProductDetailDto) {
-       return this.addProductDetail(id, productDetailDto)
+       return this.repo.addProductDetail(id, productDetailDto)
     }
 
     getProductDetail(id: string) {
-       return this.getProductDetail(id)
+       return this.repo.getProductDetail(id)
     }
     
     deleteProductDetail(id: string) {
-       return this.deleteProductDetail(id)
+       return this.repo.deleteProductDetail(id)
     }
 
 }

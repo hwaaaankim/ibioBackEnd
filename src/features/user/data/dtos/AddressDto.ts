@@ -19,8 +19,8 @@ export class AddressDto {
     city: string;
 
     @IsNotEmpty()
-    @IsString()
-    postCode: string;
+    @IsNumber()
+    postCode: number;
 
     @IsNotEmpty()
     @IsString()

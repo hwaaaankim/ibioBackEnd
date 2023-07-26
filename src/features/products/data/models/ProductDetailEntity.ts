@@ -14,7 +14,7 @@ import { CommonEntity } from 'src/database/CommonEntity';
 import { ProductEntity } from './ProductEntity';
 import { ProductSizeEntity } from './ProductSizeEntity';
   
-  @Entity('products')
+  @Entity('products_details')
   export class ProductDetailEntity extends CommonEntity {
     
     @PrimaryGeneratedColumn('uuid')

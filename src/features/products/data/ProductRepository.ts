@@ -69,7 +69,7 @@ export class ProductRepository implements Product {
   async getProduct(id: string): Promise<any> {
     const product = await this.productRepository.findOne({
       where: { id: id },
-      relations: ['productDetails', 'colors', 'images', 'discounts', 'reviews', 'tags', 'productDetails.colors', 'productDetails.images', 'productDetails.sizes'],
+      relations: ['productDetails', 'discounts', 'reviews', 'tags', 'productDetails.colors', 'productDetails.images', 'productDetails.sizes'],
     });
     return product;
   }
@@ -97,7 +97,7 @@ export class ProductRepository implements Product {
     try {
       product.name = productDto.name;
       product.brand = productDto.brand;
-      product.categoryId = productDto.category;
+      product.categoryId = productDto.categoryId;
       const updated = await product.save();
       return this.productRepository.findOne({
         where: { id: updated.id },

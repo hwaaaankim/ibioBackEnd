@@ -11,7 +11,7 @@ export class ProductDetailDto {
     condition: string
 
     @IsNotEmpty()
-    @IsNumberString()
+    @IsNumber()
     regularPrice: number
 
     images: any[]
@@ -25,23 +25,15 @@ export class ProductDetailDto {
     sizes: string
 
     @IsOptional()
-    @IsString()
-    motor_type: string
-
-    @IsOptional()
     @IsNumber()
     quantity: number
 
     @IsOptional()
     @IsString()
-    transmission: string
+    features: string
 
     @IsOptional()
     @IsString()
-    year: string
-
-    @IsOptional()
-    @IsString()
-    fuel: string
+    model: string
 
 }

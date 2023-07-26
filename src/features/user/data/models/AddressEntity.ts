@@ -26,8 +26,8 @@ export class AddressEntity extends CommonEntity {
     @Column('varchar', { nullable: false })
     city: string;
 
-    @Column('varchar', { unique: true, nullable: false })
-    postCode: string;
+    @Column('int', { unique: true, nullable: false })
+    postCode: number;
 
     @Column('varchar', { default: 'south korea'})
     country: string;

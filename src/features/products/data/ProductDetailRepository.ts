@@ -12,6 +12,7 @@ import { ProductImageEntity } from "./models/ProductImageEntity";
 import * as fs from 'fs';
 import { join } from 'path';
 import { ProductSizeEntity } from "./models/ProductSizeEntity";
+import { ProductEntity } from "./models/ProductEntity";
 
 export class ProductDetailRepository implements ProductDetail {
 
@@ -50,6 +51,7 @@ export class ProductDetailRepository implements ProductDetail {
             }
             // add images
             if (productDetailDto.images) {
+                console.log(productDetailDto.images)
                 productDetailDto.images.forEach(async (image) => {
                     await AppDataSource.getRepository(ProductImageEntity)
                         .create({
@@ -146,7 +148,7 @@ export class ProductDetailRepository implements ProductDetail {
     }
 
     private async productExists(id: string): Promise<any> {
-        const product = await ProductDetailEntity.findOne({ where: { id: id } })
+        const product = await ProductEntity.findOne({ where: { id: id } })
         if (!product) throw new DataNotFoundException('product with that id not found')
         return product
     }

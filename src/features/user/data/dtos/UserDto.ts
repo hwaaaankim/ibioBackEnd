@@ -9,8 +9,12 @@ import {
   MaxLength,
   IsNumber,
   IsOptional,
+  IsDefined,
+  IsNotEmptyObject,
+  ValidateNested,
 } from 'class-validator'
 import { AddressDto } from './AddressDto'
+import { Type } from 'class-transformer'
 
 export class UserDto {
   @IsNotEmpty()
@@ -40,7 +44,10 @@ export class UserDto {
   @ApiProperty({ type: String, description: 'password' })
   password: string
 
-  @IsNotEmpty()
+  @IsDefined()
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => AddressDto)
   address: AddressDto
 
 }

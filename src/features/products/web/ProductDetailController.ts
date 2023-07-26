@@ -24,7 +24,7 @@ export class ProductDetailController {
     @UseGuards(JwtAuthGuard)
     @Role(['admin'])
     addProductDetail(@Param('id') id: string, @Body() productDetailDto: ProductDetailDto, @UploadedFiles(CompressionPipe) images: any) {
-        productDetailDto.images = images
+        if(images) productDetailDto.images = images
         return this.service.addProductDetail(id, productDetailDto)
     }
 
@@ -34,7 +34,7 @@ export class ProductDetailController {
     @UseGuards(JwtAuthGuard)
     @Role(['admin'])
     updateProductDetail(@Param('id') id: string, @Body() productDetailDto: ProductDetailDto, @UploadedFiles(CompressionPipe) images: any) {
-        productDetailDto.images = images
+        if(images) productDetailDto.images = images
         return this.service.addProductDetail(id, productDetailDto)
     }
 

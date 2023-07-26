@@ -8,6 +8,7 @@ export class CompressionPipe implements PipeTransform<Express.Multer.File[], Pro
 
 
     async transform(images: Express.Multer.File[]): Promise<any> {
+        if(!images) return
         let uploadedImages = new Array();
         for (const image of images) {
             const filename = uuid() + '.webp';

@@ -42,6 +42,11 @@ export class ProductController {
         return this.service.filterProducts(category);
     }
 
+    @Get(':id')
+    getProduct(@Param('id') id: string): any {
+        return this.service.getProduct(id)
+    }
+
     @Get()
     getProducts(@Query('page') page?: number,
         @Query('limit') limit?: number): any {
