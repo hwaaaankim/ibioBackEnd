@@ -13,6 +13,7 @@ import { TagModule } from './features/tags/web/TagModule';
 import { ProductReviewModule } from './features/product_reviews/web/ProductReviewModule';
 import { ProductDiscountModule } from './features/product_discounts/web/ProductDiscountModule';
 import { WishlistModule } from './features/wishlists/web/wishlistModule';
+import { OrderModule } from './features/orders/web/OrderModule';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { WishlistModule } from './features/wishlists/web/wishlistModule';
     ProductReviewModule,
     ProductDiscountModule,
     WishlistModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [],

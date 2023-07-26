@@ -1,6 +1,6 @@
 import { WishlistEntity } from './models/WishlistEntity';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
-import { Wishlist } from '../domain/Wishlist';
+import { Wishlist } from '../domain/WishList'
 import { WishlistDto } from './dtos/WishlistDto';
 import { SystemErrorException } from '../../../util/exception/SystemErrorException';
 import { DuplicateResouceFound } from '../../../util/exception/DuplicateResourceFound';

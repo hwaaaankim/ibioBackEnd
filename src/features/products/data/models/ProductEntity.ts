@@ -21,8 +21,8 @@ export class ProductEntity extends BaseEntity {
   @Column('varchar', { nullable: false })
   name: string;
 
-  @Column('varchar', { nullable: false})
-  code: string
+  @Column('varchar', { nullable: false })
+  code: string;
 
   @Column('varchar', { nullable: false })
   brand: string;
@@ -31,25 +31,33 @@ export class ProductEntity extends BaseEntity {
   description: string;
 
   @Column('varchar', { nullable: false })
-  categoryId: string
+  categoryId: string;
 
   @ManyToOne(() => CategoryEntity, (category) => category.products)
   @JoinColumn({ referencedColumnName: 'id' })
   category: CategoryEntity;
 
-  @OneToMany(() => ProductDetailEntity, (pd) => pd.product, { onDelete: 'CASCADE' })
+  @OneToMany(() => ProductDetailEntity, (pd) => pd.product, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
-  productDetails: ProductDetailEntity
+  productDetails: ProductDetailEntity;
 
-  @OneToMany(() => ProductDiscountEntity, (pd) => pd.product, { onDelete: 'CASCADE' })
+  @OneToMany(() => ProductDiscountEntity, (pd) => pd.product, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
-  discounts: ProductDiscountEntity
+  discounts: ProductDiscountEntity;
 
-  @OneToMany(() => ProductReviewEntity, (pd) => pd.product, { onDelete: 'CASCADE' })
+  @OneToMany(() => ProductReviewEntity, (pd) => pd.product, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
-  reviews: ProductDetailEntity
+  reviews: ProductDetailEntity;
 
-  @OneToMany(() => ProductTagEntity, (pd) => pd.product, { onDelete: 'CASCADE' })
+  @OneToMany(() => ProductTagEntity, (pd) => pd.product, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
-  tags: ProductDetailEntity
+  tags: ProductDetailEntity;
 }

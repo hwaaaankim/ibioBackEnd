@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductEntity } from './ProductEntity';
-import { CommonEntity } from 'src/database/CommonEntity';
+import { CommonEntity } from '../../../../database/CommonEntity';
 
 @Entity('categories')
 export class CategoryEntity extends CommonEntity {
