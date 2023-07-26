@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CategoryDto } from '../data/dtos/CategoryDto';
-import { BlogDto } from '../data/dtos/BlogDto';
+import { BlogDto } from '../data/dtos/BlogDto.dto';
 import { Blog } from './Blog';
 import { CommentDto } from '../data/dtos/CommentDto';
 

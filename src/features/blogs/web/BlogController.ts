@@ -1,16 +1,18 @@
 import { JwtAuthGuard } from '../../../util/auth/jwt/JwtAuthGuard';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { MulterImageConfig } from '../../../util/file_upload/MulterConfig';
-import { BlogDto } from '../data/dtos/BlogDto';
+import { BlogDto } from '../data/dtos/BlogDto.dto';
 import { DatabaseFactory } from '../../../database/DatabaseFactory';
 import { BlogService } from '../domain/BlogService';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UploadedFile, UploadedFiles, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
 // import { FileInterceptor } from '@nestjs/platform-express';
 import { Role } from 'src/util/decorators/Role';
 import { FilesInterceptor } from '@nestjs/platform-express/multer/interceptors';
-import { ApiTags, ApiOkResponse,ApiNotFoundResponse, ApiForbiddenResponse, ApiUnprocessableEntityResponse, ApiCreatedResponse, ApiInternalServerErrorResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOkResponse,ApiNotFoundResponse, ApiForbiddenResponse, ApiUnprocessableEntityResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiBody, ApiExtraModels } from '@nestjs/swagger';
+import { CategoryDto } from 'src/features/products/data/dtos/CategoryDto';
 
 @ApiTags('blogs')
+@ApiExtraModels(BlogDto, CategoryDto)
 @Controller('blogs')
 export class BlogController {
 
@@ -27,6 +29,7 @@ export class BlogController {
     @UseGuards(JwtAuthGuard)
     @Role(['admin'])
 
+    @ApiBody({ type: [BlogDto] })
     @ApiCreatedResponse({description: 'Blog Created Succesfully'})
     @ApiUnprocessableEntityResponse({description: 'Bad Request'})
     @ApiForbiddenResponse({description: 'Unauthorized Request'})

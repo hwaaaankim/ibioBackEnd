@@ -3,7 +3,7 @@ import { DuplicateResouceFound } from '../../../util/exception/DuplicateResource
 import { BlogEntity } from './models/BlogEntity';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 import { Blog } from '../domain/Blog';
-import { BlogDto } from './dtos/BlogDto';
+import { BlogDto } from './dtos/BlogDto.dto';
 import { Like, getRepository } from 'typeorm';
 import { DataNotFoundException } from '../../../util/exception/DataNotFoundException';
 import { CategoryDto } from './dtos/CategoryDto';

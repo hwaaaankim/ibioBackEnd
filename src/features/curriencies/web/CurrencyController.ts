@@ -17,7 +17,9 @@ import { AddCurrencyDto } from '../data/dtos/AddCurrencyDto';
 import { UpdateCurrencyDto } from '../data/dtos/UpdateCurrencyDto';
 import { CurrencyService } from '../domain/CurrencyService';
 import { Role } from 'src/util/decorators/Role';
+import { ApiExtraModels } from '@nestjs/swagger';
 
+@ApiExtraModels(AddCurrencyDto, UpdateCurrencyDto)
 @Controller('currencies')
 export class CurrencyController {
   currencyService: CurrencyService;

@@ -1,5 +1,5 @@
 import { CommentDto } from "../data/dtos/CommentDto";
-import { BlogDto } from "../data/dtos/BlogDto";
+import { BlogDto } from "../data/dtos/BlogDto.dto";
 import { Category } from "./Category";
 
 export interface Blog extends Category {

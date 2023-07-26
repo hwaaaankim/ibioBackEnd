@@ -16,7 +16,9 @@ import { AddProductReturnDto } from '../data/dtos/AddProductReturnDto';
 import { UpdateProductReturnDto } from '../data/dtos/UpdateProductReturnDto';
 import { ProductReturnService } from '../domain/ProductReturnService';
 import { Role } from '../../../util/decorators/Role';
+import { ApiExtraModels } from '@nestjs/swagger';
 
+@ApiExtraModels(AddProductReturnDto, UpdateProductReturnDto)
 @Controller('product_returns')
 export class ProductReturnController {
   productReturnService: ProductReturnService;

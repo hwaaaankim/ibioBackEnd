@@ -16,7 +16,9 @@ import { AddOrderDto } from '../data/dtos/AddOrderDto';
 import { UpdateOrderDto } from '../data/dtos/UpdateOrderDto';
 import { OrderService } from '../domain/OrderService';
 import { Role } from '../../../util/decorators/Role';
+import { ApiExtraModels } from '@nestjs/swagger';
 
+@ApiExtraModels(AddOrderDto, UpdateOrderDto)
 @Controller('Orders')
 export class OrderController {
   OrderService: OrderService;

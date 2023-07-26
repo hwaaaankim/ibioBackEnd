@@ -29,7 +29,7 @@
     "@nestjs/passport": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^3.0.1",
-    "@nestjs/swagger": "^7.1.1",
+    "@nestjs/swagger": "^7.1.2",
     "@nestjs/throttler": "^4.1.0",
     "@nestjs/typeorm": "^10.0.0",
     "@types/express-rate-limit": "^6.0.0",
@@ -54,6 +54,7 @@
     "save": "^2.9.0",
     "save-dev": "^0.0.1-security",
     "sharp": "^0.32.3",
+    "swagger-ui-express": "^5.0.0",
     "typeorm": "^0.3.17"
   },
   "devDependencies": {

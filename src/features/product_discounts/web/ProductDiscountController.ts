@@ -16,7 +16,9 @@ import { AddProductDiscountDto } from '../data/dtos/AddProductDiscountDto';
 import { UpdateProductDiscountDto } from '../data/dtos/UpdateProductDiscountDto';
 import { ProductDiscountService } from '../domain/ProductDiscountService';
 import { Role } from '../../../util/decorators/Role';
+import { ApiExtraModels } from '@nestjs/swagger';
 
+@ApiExtraModels(AddProductDiscountDto, UpdateProductDiscountDto)
 @Controller('product_discounts')
 export class ProductDiscountController {
   productDiscountService: ProductDiscountService;

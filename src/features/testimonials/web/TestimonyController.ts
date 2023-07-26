@@ -7,9 +7,10 @@ import { TestimonyService } from '../domain/TestimonyService';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
 // import { FileInterceptor } from '@nestjs/platform-express';
 import { Role } from 'src/util/decorators/Role';
-import { ApiCreatedResponse, ApiForbiddenResponse, ApiInternalServerErrorResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiExtraModels, ApiForbiddenResponse, ApiInternalServerErrorResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
 
 @ApiTags('testimonials')
+@ApiExtraModels(TestimonyDto)
 @Controller('testimonials')
 export class TestimonyController {
 

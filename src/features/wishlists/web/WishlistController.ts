@@ -15,7 +15,9 @@ import { JwtAuthGuard } from 'src/util/auth/jwt/JwtAuthGuard';
 import { WishlistDto } from '../data/dtos/WishlistDto';
 import { WishlistService } from '../domain/WishListService';
 import { Role } from '../../../util/decorators/Role';
+import { ApiExtraModels } from '@nestjs/swagger';
 
+@ApiExtraModels(WishlistDto)
 @Controller('wishlists')
 export class WishlistController {
   wishlistService: WishlistService;

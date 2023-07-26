@@ -23,7 +23,9 @@ import { Role } from '../../../util/decorators/Role';
 import { MulterImageConfig } from '../../../util/file_upload/MulterConfig';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ValidationException } from '../../../util/exception/ValidationException';
+import { ApiExtraModels } from '@nestjs/swagger';
 
+@ApiExtraModels(AddMemberDto, AddMemberSocialAccountDto, UpdateMemberDto, UpdateMemberSocialAccountDto)
 @Controller('members')
 export class MemberController {
   private memberService: MemberService;

@@ -17,7 +17,9 @@ import { AddProductReviewDto } from '../data/dtos/AddProductReviewDto';
 import { UpdateProductReviewDto } from '../data/dtos/UpdateProductReviewDto';
 import { ProductReviewService } from '../domain/ProductReviewService';
 import { Role } from '../../../util/decorators/Role';
+import { ApiExtraModels } from '@nestjs/swagger';
 
+@ApiExtraModels(AddProductReviewDto, UpdateProductReviewDto)
 @Controller('product_reviews')
 export class ProductReviewController {
   productReviewService: ProductReviewService;

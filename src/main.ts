@@ -1,4 +1,4 @@
-import { SwaggerModule } from '@nestjs/swagger';
+import { SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import helmet from 'helmet';
@@ -21,7 +21,7 @@ async function bootstrap() {
     }),
   );
 
-  const options = new DocumentBuilder()
+  const config = new DocumentBuilder()
     .setTitle('Shopping mall')
     .setDescription('Shopping mall API\\"s')
     .setVersion('1.0.0')
@@ -30,7 +30,12 @@ async function bootstrap() {
       'Bearer',
     )
     .build();
-  const document = SwaggerModule.createDocument(app, options);
+
+  const options: SwaggerDocumentOptions = {
+    deepScanRoutes: true
+  };
+
+  const document = SwaggerModule.createDocument(app, config, options);
   SwaggerModule.setup('api', app, document);
 
   await AppDataSource.initialize();

@@ -7,8 +7,9 @@ import { JwtAuthGuard } from "src/util/auth/jwt/JwtAuthGuard";
 import { Role } from "src/util/decorators/Role";
 import { FilesInterceptor } from "@nestjs/platform-express";
 import { CompressionPipe } from "src/util/file_upload/CompressionPipe";
+import { ApiExtraModels } from "@nestjs/swagger";
 
-
+@ApiExtraModels(ProductDetailDto)
 @Controller('products/details')
 export class ProductDetailController {
 

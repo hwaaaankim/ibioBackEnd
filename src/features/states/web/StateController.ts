@@ -16,7 +16,9 @@ import { AddStateDto } from '../data/dtos/AddStateDto';
 import { UpdateStateDto } from '../data/dtos/UpdateStateDto';
 import { StateService } from '../domain/StateService';
 import { Role } from '../../../util/decorators/Role';
+import { ApiExtraModels } from '@nestjs/swagger';
 
+@ApiExtraModels(AddStateDto, UpdateStateDto)
 @Controller('states')
 export class StateController {
   StateService: StateService;

@@ -8,8 +8,9 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UploadedFi
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Role } from 'src/util/decorators/Role';
 import { ProductDetailDto } from '../data/dtos/ProductDetailDto';
+import { ApiExtraModels } from '@nestjs/swagger';
 
-
+@ApiExtraModels(ProductDto)
 @Controller('products')
 export class ProductController {
 

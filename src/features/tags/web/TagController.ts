@@ -16,7 +16,9 @@ import { AddTagDto } from '../data/dtos/AddTagDto';
 import { UpdateTagDto } from '../data/dtos/UpdateTagDto';
 import { TagService } from '../domain/TagService';
 import { Role } from '../../../util/decorators/Role';
+import { ApiExtraModels } from '@nestjs/swagger';
 
+@ApiExtraModels(AddTagDto, UpdateTagDto)
 @Controller('Tags')
 export class TagController {
   tagService: TagService;

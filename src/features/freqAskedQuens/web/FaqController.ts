@@ -8,7 +8,9 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseI
 // import { FileInterceptor } from '@nestjs/platform-express';
 import { Role } from 'src/util/decorators/Role';
 import { FilesInterceptor } from '@nestjs/platform-express/multer/interceptors';
+import { ApiExtraModels } from '@nestjs/swagger';
 
+@ApiExtraModels(FaqDto)
 @Controller('faqs')
 export class FaqController {
 

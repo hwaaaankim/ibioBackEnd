@@ -4,8 +4,10 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UploadedFile, UseGuard
 import { JwtAuthGuard } from 'src/util/auth/jwt/JwtAuthGuard';
 import { Role } from 'src/util/decorators/Role';
 import { CategoryDto } from '../data/dtos/CategoryDto';
+import { ApiExtraModels } from '@nestjs/swagger';
 
 
+@ApiExtraModels(CategoryDto)
 @Controller('categories')
 export class CategoryController {
 

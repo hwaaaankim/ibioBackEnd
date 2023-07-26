@@ -48,6 +48,7 @@ export class UserDto {
   @IsNotEmptyObject()
   @ValidateNested()
   @Type(() => AddressDto)
+  @ApiProperty({ type: Object, description: 'address object' })
   address: AddressDto
 
 }
