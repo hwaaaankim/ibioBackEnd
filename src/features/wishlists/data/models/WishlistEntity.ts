@@ -3,11 +3,13 @@ import { CommonEntity } from '../../../../database/CommonEntity';
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { WishlistDetailEntity } from './WishListDetailEntity';
+import { ProductDetailEntity } from 'src/features/products/data/models/ProductDetailEntity';
 
 @Entity('wishlists')
 export class WishlistEntity extends CommonEntity {
@@ -34,4 +36,8 @@ export class WishlistEntity extends CommonEntity {
 
   @OneToMany(() => WishlistDetailEntity, (detail) => detail.wishlist)
   details: WishlistDetailEntity[];
+
+  @ManyToOne(() => ProductDetailEntity, (product) => product.wishlists)
+  @JoinColumn({ referencedColumnName: 'id' })
+  productDetail: ProductDetailEntity;
 }
