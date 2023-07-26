@@ -59,7 +59,6 @@ export class BlogRepository implements Blog {
   }
 
   async updateBlog(id: string, blogDto: BlogDto): Promise<any> {
-    console.log("REPO")
     const blog: BlogEntity = await this.BlogRepository.findOne({
       where: { id: id },
       relations : ['image', 'category']
@@ -70,6 +69,7 @@ export class BlogRepository implements Blog {
       blog.title = blogDto.title;
       blog.content = blogDto.content;
       blog.postedById = blogDto.postedById;
+      blog.category.id = blogDto.categoryId
       
       // add images
       if (blogDto.image) {

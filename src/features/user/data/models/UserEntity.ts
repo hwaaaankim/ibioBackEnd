@@ -8,7 +8,7 @@ import {
 import { UserVerificationEntity } from './UserVerificationEntity';
 import { AddressEntity } from './AddressEntity';
 import { CommonEntity } from '../../../../database/CommonEntity';
-import { Wishlist } from 'src/features/wishlists/domain/Wishlist';
+import { Wishlist } from 'src/features/wishlists/domain/WishList'
 import { WishlistEntity } from 'src/features/wishlists/data/models/WishlistEntity';
 
 @Entity('users')
