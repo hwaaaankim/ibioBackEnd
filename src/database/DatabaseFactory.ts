@@ -11,7 +11,7 @@ import { TagRepository } from './../features/tags/data/TagRepository';
 import { ProductReviewRepository } from './../features/product_reviews/data/ProductReviewRepository';
 import { ProductReturnRepository } from './../features/product_returns/data/ProductReturnRepository';
 import { ProductTagRepository } from './../features/product_tags/data/ProductTagRepository';
-import { WishlistRepository } from './../features/wishlists/data/WishListRepository';
+import { WishlistRepository } from './../features/wishlists/data/WishlistRepository';
 import { ProductDetailRepository } from './../features/products/data/ProductDetailRepository';
 import { OrderRepository } from './../features/orders/data/OrderRepository';
 
