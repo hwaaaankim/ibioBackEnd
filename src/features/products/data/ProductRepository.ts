@@ -96,7 +96,7 @@ export class ProductRepository implements Product {
 
     try {
       product.name = productDto.name;
-      product.brand = productDto.brand;
+      product.description = productDto.description;
       product.categoryId = productDto.categoryId;
       const updated = await product.save();
       return this.productRepository.findOne({

@@ -12,7 +12,7 @@ export class ProductDetailDto {
 
     @IsNotEmpty()
     @IsNumber()
-    regularPrice: number
+    basePrice: number
 
     images: any[]
 

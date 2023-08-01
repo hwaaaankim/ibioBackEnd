@@ -1,7 +1,7 @@
 import { Controller, Post, Put, Get, Delete, Param, Body, UsePipes, ValidationPipe, UseGuards, UseInterceptors, UploadedFiles } from "@nestjs/common";
 import { ProductDetail } from "../domain/ProductDetail";
 import { ProductDetailDto } from "../data/dtos/ProductDetailDto";
-import { ProductDetailService } from "../domain/ProductDetailService";
+import { ProductDetailService } from "../domain/services/ProductDetailService";
 import { DatabaseFactory } from "src/database/DatabaseFactory";
 import { JwtAuthGuard } from "src/util/auth/jwt/JwtAuthGuard";
 import { Role } from "src/util/decorators/Role";

@@ -11,13 +11,14 @@ import { TagRepository } from './../features/tags/data/TagRepository';
 import { ProductReviewRepository } from './../features/product_reviews/data/ProductReviewRepository';
 import { ProductReturnRepository } from './../features/product_returns/data/ProductReturnRepository';
 import { ProductTagRepository } from './../features/product_tags/data/ProductTagRepository';
-import { WishlistRepository } from './../features/wishlists/data/WishListRepository';
+import { WishlistRepository } from './../features/wishlists/data/WishlistRepository';
 import { ProductDetailRepository } from './../features/products/data/ProductDetailRepository';
 import { OrderRepository } from './../features/orders/data/OrderRepository';
 import { TaxRepository } from './../features/taxes/data/TaxRepository';
 import { PaymentAddressRepository } from './../features/payments/payment_addresses/data/PaymentAddressRepository';
 import { PaymentMethodRepository } from './../features/payments/payment_methods/data/PaymentMethodRepository';
 import { ShippingAddressRepository } from './/../features/shipping/shipping_addresses/data/ShippingAddressRepository';
+import { ProductSizeRepository } from 'src/features/products/data/ProductSizeRepository';
 
 export class DatabaseFactory {
   static getRepository(feature: string): any {
@@ -71,18 +72,6 @@ export class DatabaseFactory {
         break;
       case 'ORDER':
         repository = new OrderRepository();
-        break;
-      case 'TAX':
-        repository = new TaxRepository();
-        break;
-      case 'PAYMENT_ADDRESS':
-        repository = new PaymentAddressRepository();
-        break;
-      case 'PAYMENT_METHOD':
-        repository = new PaymentMethodRepository();
-        break;
-      case 'SHIPPING_ADDRESS':
-        repository = new ShippingAddressRepository();
         break;
       default:
         throw new SystemErrorException('Repository not found.');

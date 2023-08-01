@@ -130,7 +130,7 @@ export class BlogRepository implements Blog {
   async getBlogDetails(id: string): Promise<any> {
     const blog = await this.BlogRepository.findOne({
       where: { id: id },
-      relations: ['colors', 'images'],
+      relations: ['category', 'image', 'comments'],
     });
     return blog;
   }
