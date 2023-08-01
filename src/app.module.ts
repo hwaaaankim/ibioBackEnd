@@ -14,6 +14,10 @@ import { ProductReviewModule } from './features/product_reviews/web/ProductRevie
 import { ProductDiscountModule } from './features/product_discounts/web/ProductDiscountModule';
 import { WishlistModule } from './features/wishlists/web/wishlistModule';
 import { OrderModule } from './features/orders/web/OrderModule';
+import { TaxModule } from './features/taxes/web/TaxModule';
+import { PaymentAddressModule } from './features/payments/payment_addresses/web/PaymentAddressModule';
+import { PaymentMethodModule } from './features/payments/payment_methods/web/PaymentMethodModule';
+import { ShippingAddressModule } from './features/shipping/shipping_addresses/web/ShippingAddressModule';
 
 @Module({
   imports: [
@@ -31,6 +35,10 @@ import { OrderModule } from './features/orders/web/OrderModule';
     ProductDiscountModule,
     WishlistModule,
     OrderModule,
+    TaxModule,
+    PaymentAddressModule,
+    PaymentMethodModule,
+    ShippingAddressModule,
   ],
   controllers: [AppController],
   providers: [],

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateCurrencyDto {
   @IsOptional()
@@ -24,4 +24,9 @@ export class UpdateCurrencyDto {
   @IsString()
   @ApiProperty({ type: 'displaySymbol', description: 'Display symbol' })
   dsiplaySymbol: string;
+
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ type: 'isDefault', description: 'Is default currency' })
+  isDefault: boolean;
 }

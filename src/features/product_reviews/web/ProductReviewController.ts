@@ -46,6 +46,16 @@ export class ProductReviewController {
     return this.productReviewService.getProductReviews();
   }
 
+  @Get('/rates/:id')
+  getProductRate(@Param('id') productReviewId: string): any {
+    return this.productReviewService.getProductRate(productReviewId);
+  }
+
+  @Get('/rates')
+  getProductRates(): any {
+    return this.productReviewService.getProductReviews();
+  }
+
   @Put(':id')
   @UsePipes(ValidationPipe)
   @UseGuards(JwtAuthGuard)

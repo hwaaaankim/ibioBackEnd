@@ -11,10 +11,16 @@ export class ProductReviewService implements ProductReview {
   getProductReview(productReviewId: string): any {
     return this.repository.getProductReview(productReviewId);
   }
+
   getProductReviews(): any {
     return this.repository.getProductReviews();
   }
-
+  getProductRates(): any {
+    return this.repository.getProductRates();
+  }
+  getProductRate(productId: string): any {
+    return this.repository.getProductRate(productId);
+  }
   updateProductReview(
     productReviewId: string,
     updatedProductReview: UpdateProductReviewDto,
