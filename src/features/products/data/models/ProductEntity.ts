@@ -29,7 +29,7 @@ export class ProductEntity extends BaseEntity {
   @Column('varchar', { nullable: false })
   code: string;
 
-  @Column('enum', { nullable: false, default: ProductStatusEnum.IN_STOCK })
+  @Column('enum', { enum: ProductStatusEnum, nullable: false, default: ProductStatusEnum.IN_STOCK })
   status: ProductStatusEnum;
 
   @Column('text', { nullable: false })
