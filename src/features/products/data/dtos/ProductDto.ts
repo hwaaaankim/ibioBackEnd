@@ -1,4 +1,5 @@
 import { IsArray, IsEmpty, IsEnum, IsIn, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString, isEnum } from "class-validator"
+import { ProductStatusEnum } from "../models/ProductEntity"
 
 export enum ProductCategoryEnum { SHOES, SOMETHING, CARS }
 
@@ -8,9 +9,9 @@ export class ProductDto {
     @IsNotEmpty()
     name: string
 
-    @IsString()
+    @IsEnum(ProductStatusEnum)
     @IsNotEmpty()
-    brand: string
+    status: string
 
     @IsString()
     @IsNotEmpty()
@@ -21,5 +22,9 @@ export class ProductDto {
     categoryId: string
 
     code: string
+
+    colors: string
+    sizes: string
+    
 
 }

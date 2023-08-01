@@ -3,11 +3,10 @@ import { JwtAuthGuard } from './../../../util/auth/jwt/JwtAuthGuard';
 import { MulterImageConfig } from './../../../util/file_upload/MulterConfig';
 import { ProductDto } from './../data/dtos/ProductDto';
 import { DatabaseFactory } from './../../../database/DatabaseFactory';
-import { ProductService } from './../domain/ProductService';
+import { ProductService } from '../domain/services/ProductService';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UploadedFile, UploadedFiles, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Role } from 'src/util/decorators/Role';
-import { ProductDetailDto } from '../data/dtos/ProductDetailDto';
 import { ApiExtraModels } from '@nestjs/swagger';
 
 @ApiExtraModels(ProductDto)
@@ -22,7 +21,7 @@ export class ProductController {
 
     @Post()
     @UsePipes(ValidationPipe)
-    // @UseInterceptors(FilesInterceptor('images', 2, MulterImageConfig))
+    @UseInterceptors(FilesInterceptor('images', 2, MulterImageConfig))
     @UseGuards(JwtAuthGuard)
     @Role(['admin'])
     addProduct(@Body() product: ProductDto): any {

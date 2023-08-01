@@ -7,11 +7,6 @@ import { AppDataSource } from "src/database/config/TypeOrmConfig";
 import { DuplicateResouceFound } from "src/util/exception/DuplicateResourceFound";
 import { SystemErrorException } from "src/util/exception/SystemErrorException";
 import { DataNotFoundException } from "src/util/exception/DataNotFoundException";
-import { ProductColorEntity } from "./models/ProductColorEntity";
-import { ProductImageEntity } from "./models/ProductImageEntity";
-import * as fs from 'fs';
-import { join } from 'path';
-import { ProductSizeEntity } from "./models/ProductSizeEntity";
 import { ProductEntity } from "./models/ProductEntity";
 
 export class ProductDetailRepository implements ProductDetail {
@@ -26,44 +21,9 @@ export class ProductDetailRepository implements ProductDetail {
         try {
             productDetailDto.productId = id
             const productDetail = await this.repository.create(productDetailDto).save()
-            // add sizes
-            if (productDetailDto.sizes) {
-                const sizes = JSON.parse(productDetailDto.sizes)
-                sizes.forEach( async (size) => {
-                    await ProductSizeEntity.create({
-                        productDetailId: id,
-                        quantity: size.quantity,
-                        size: size.size
-                    }).save()
-                })
-            }
-            // add colors
-            if (productDetailDto.colors) {
-                const colors = JSON.parse(productDetailDto.colors);
-                colors.forEach(async (color) => {
-                    await AppDataSource.getRepository(ProductColorEntity)
-                        .create({
-                            productDetailId: productDetail.id,
-                            color: color,
-                        })
-                        .save();
-                });
-            }
-            // add images
-            if (productDetailDto.images) {
-                console.log(productDetailDto.images)
-                productDetailDto.images.forEach(async (image) => {
-                    await AppDataSource.getRepository(ProductImageEntity)
-                        .create({
-                            productId: productDetail.id,
-                            image: image,
-                        })
-                        .save();
-                });
-            }
             return this.repository.findOne({
                 where: { id: productDetail.id },
-                relations: ['colors', 'images'],
+                relations: ['colors', 'media'],
             });
         } catch (e) {
             if (e.code === 'ER_DUP_ENTRY') {
@@ -79,54 +39,12 @@ export class ProductDetailRepository implements ProductDetail {
 
     async updateProductDetail(id: string, productDetailDto: ProductDetailDto): Promise<any> {
         await this.productExists(id)
-        const productDetail = await ProductDetailEntity.findOne({ where: { productId: id }, relations: { colors: true, images: true } })
+        const productDetail = await ProductDetailEntity.findOne({ where: { productId: id }})
         if (!productDetail) throw new DataNotFoundException('No product detail found')
-        if (productDetailDto.colors) {
-            // remove old colors
-            await ProductColorEntity.remove(productDetail.colors)
-            const colors = JSON.parse(productDetailDto.colors);
-            colors.forEach(async (color) => {
-                await AppDataSource.getRepository(ProductColorEntity)
-                    .create({
-                        productDetailId: productDetail.id,
-                        color: color,
-                    })
-                    .save();
-            });
-        }
-        // add images
-        if (productDetailDto.images) {
-            // remove old images
-            await ProductImageEntity.remove(productDetail.images)
-            // remove the files from hard disk
-            productDetail.images.forEach((image) => {
-                fs.unlink(
-                    join(process.cwd() + '/uploads/images/' + image.image),
-                    (err) => {
-                        if (err) {
-                            console.error(err);
-                            //  return err;
-                        }
-                    },
-                );
-            });
-            productDetailDto.images.forEach(async (image) => {
-                await AppDataSource.getRepository(ProductImageEntity)
-                    .create({
-                        productId: productDetail.id,
-                        image: image,
-                    })
-                    .save();
-            });
-        }
-        productDetail.regularPrice = productDetailDto.regularPrice;
-        productDetail.condition = productDetailDto.condition;
-        productDetail.quantity = productDetailDto.quantity;
-        productDetail.model = productDetail.model
-        productDetail.features = productDetail.features
         try {
+            productDetail.basePrice = productDetailDto.basePrice
             await productDetail.save()
-
+            return true
         } catch (e) {
             throw new SystemErrorException()
         }

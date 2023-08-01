@@ -14,6 +14,7 @@ import { ProductTagRepository } from './../features/product_tags/data/ProductTag
 import { WishlistRepository } from './../features/wishlists/data/WishListRepository';
 import { ProductDetailRepository } from './../features/products/data/ProductDetailRepository';
 import { OrderRepository } from './../features/orders/data/OrderRepository';
+import { ProductSizeRepository } from 'src/features/products/data/ProductSizeRepository';
 
 export class DatabaseFactory {
   static getRepository(feature: string): any {
@@ -67,6 +68,8 @@ export class DatabaseFactory {
         break;
       case 'ORDER':
         repository = new OrderRepository();
+      case 'PRODUCT_SIZE':
+        repository = new ProductSizeRepository()
         break;
       default:
         throw new SystemErrorException('Repository not found.');

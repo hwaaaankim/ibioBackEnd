@@ -1,5 +1,5 @@
-import { ProductDetailDto } from "../data/dtos/ProductDetailDto";
-import { ProductDetail } from "./ProductDetail";
+import { ProductDetailDto } from "../../data/dtos/ProductDetailDto";
+import { ProductDetail } from "../ProductDetail";
 
 export class ProductDetailService implements ProductDetail {
 
