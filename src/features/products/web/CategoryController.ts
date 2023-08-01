@@ -1,5 +1,5 @@
 import { DatabaseFactory } from 'src/database/DatabaseFactory';
-import { ProductService } from './../domain/ProductService';
+import { ProductService } from './../domain/services/ProductService';
 import { Body, Controller, Delete, Get, Param, Post, Put, UploadedFile, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
 import { JwtAuthGuard } from 'src/util/auth/jwt/JwtAuthGuard';
 import { Role } from 'src/util/decorators/Role';

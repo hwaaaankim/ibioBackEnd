@@ -68,6 +68,7 @@ export class DatabaseFactory {
         break;
       case 'ORDER':
         repository = new OrderRepository();
+        break;
       case 'PRODUCT_SIZE':
         repository = new ProductSizeRepository()
         break;
