@@ -73,6 +73,18 @@ export class DatabaseFactory {
       case 'ORDER':
         repository = new OrderRepository();
         break;
+      case 'TAX':
+        repository = new TaxRepository();
+        break;
+      case 'PAYMENT_ADDRESS':
+        repository = new PaymentAddressRepository();
+        break;
+      case 'PAYMENT_METHOD':
+        repository = new PaymentMethodRepository();
+        break;
+      case 'Shipping_ADDRESS':
+        repository = new ShippingAddressRepository();
+        break;
       default:
         throw new SystemErrorException('Repository not found.');
     }

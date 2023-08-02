@@ -32,7 +32,7 @@ async function bootstrap() {
     .build();
 
   const options: SwaggerDocumentOptions = {
-    deepScanRoutes: true
+    deepScanRoutes: true,
   };
 
   const document = SwaggerModule.createDocument(app, config, options);

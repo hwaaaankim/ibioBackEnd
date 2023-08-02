@@ -10,8 +10,8 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { DatabaseFactory } from 'src/database/DatabaseFactory';
-import { JwtAuthGuard } from 'src/util/auth/jwt/JwtAuthGuard';
+import { DatabaseFactory } from '../../../database/DatabaseFactory';
+import { JwtAuthGuard } from '../../../util/auth/jwt/JwtAuthGuard';
 import { AddStateDto } from '../data/dtos/AddStateDto';
 import { UpdateStateDto } from '../data/dtos/UpdateStateDto';
 import { StateService } from '../domain/StateService';

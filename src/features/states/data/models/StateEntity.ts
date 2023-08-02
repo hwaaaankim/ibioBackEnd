@@ -1,8 +1,8 @@
 import { TaxRateEntity } from 'src/features/taxes/data/models/TaxRateEntity';
 import { CommonEntity } from '../../../../database/CommonEntity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { PaymentAddressEntity } from 'src/features/addresses/data/models/PaymentAddressEntity';
-import { ShippingAddressEntity } from 'src/features/addresses/data/models/ShippingAddressEntity';
+import { PaymentAddressEntity } from '../../../../features/payments/payment_addresses/data/models/PaymentAddressEntity';
+import { ShippingAddressEntity } from '../../../../features/shipping/shipping_addresses/data/models/ShippingAddressEntity';
 
 @Entity('states')
 export class StateEntity extends CommonEntity {
