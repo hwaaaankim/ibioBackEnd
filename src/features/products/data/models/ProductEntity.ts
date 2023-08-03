@@ -16,6 +16,7 @@ import { ProductSpecificationEntity } from './ProductSpecificationEntity';
 import { ProductColorEntity } from './ProductColorEntity';
 import { ProductMediaEntity } from './ProductMediaEntity';
 import { ProductSizeEntity } from './ProductSizeEntity';
+import { ProductVariantEntity } from './ProductVariantValueEntity';
 
 export enum ProductStatusEnum  { IN_STOCK, OUT_OF_STOCK, COMING_SOON, UNAVAILABLE }
 @Entity('products')
@@ -87,7 +88,13 @@ export class ProductEntity extends BaseEntity {
     onDelete: 'CASCADE',
   })
   @JoinColumn()
-  attributes: ProductSpecificationEntity;
+  specifications: ProductSpecificationEntity;
+
+  @OneToMany(() => ProductVariantEntity, (pd) => pd.product, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn()
+  variants: ProductVariantEntity;
 
 
 }

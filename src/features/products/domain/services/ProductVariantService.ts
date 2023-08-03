@@ -1,7 +1,7 @@
 import { ProductVariant } from "../ProductVariant";
 
 
-export class ProductColorService implements ProductVariant {
+export class ProductVariantService implements ProductVariant {
 
     repository: ProductVariant
 

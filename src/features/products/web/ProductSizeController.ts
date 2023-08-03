@@ -4,17 +4,17 @@ import { JwtAuthGuard } from 'src/util/auth/jwt/JwtAuthGuard';
 import { Role } from 'src/util/decorators/Role';
 import { CategoryDto } from '../data/dtos/CategoryDto';
 import { ApiExtraModels } from '@nestjs/swagger';
-import { ProductColorService } from '../domain/services/ProductColorService';
+import { ProductSizeService } from '../domain/services/ProductSizeService';
 
 
 @ApiExtraModels(CategoryDto)
-@Controller('products/colors')
-export class ProductColorController {
+@Controller('products/sizes')
+export class ProductSizeController {
 
     service: any
 
     constructor() {
-        this.service = new ProductColorService(DatabaseFactory.getRepository('product_color'))
+        this.service = new ProductSizeService(DatabaseFactory.getRepository('product_size'))
     }
 
     @Post()
@@ -22,7 +22,7 @@ export class ProductColorController {
     @UseGuards(JwtAuthGuard)
     @Role(['admin'])
     add(@Body() color: any ): any {
-        return this.service.add(color.color)
+        return this.service.add(color)
     }
 
     @Put(':id')
@@ -38,18 +38,17 @@ export class ProductColorController {
     @UseGuards(JwtAuthGuard)
     @Role(['admin'])
     delete(@Param('id') id: string): any {
-        console.log(id);
-        return this.service.deleteCategory(id);
+        return this.service.delete(id);
     }
 
     @Get()
-    getAll(): any {
-        return this.service.getCategories();
+    findAll(): any {
+        return this.service.findAll();
     }
 
-    @Get()
-    get(): any {
-        return this.service.getCategories();
+    @Get(':id')
+    find(@Param('id') id: string): any {
+        return this.service.find(id);
     }
 
     

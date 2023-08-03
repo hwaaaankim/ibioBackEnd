@@ -69,7 +69,7 @@ export class ProductRepository implements Product {
   async getProduct(id: string): Promise<any> {
     const product = await this.productRepository.findOne({
       where: { id: id },
-      relations: ['productDetails', 'discounts', 'reviews', 'tags', 'productDetails.colors', 'productDetails.images', 'productDetails.sizes'],
+      relations: ['productDetails', 'discounts', 'reviews', 'tags', 'colors', 'images', 'sizes', 'media', 'variants','specifications'],
     });
     return product;
   }
@@ -101,7 +101,7 @@ export class ProductRepository implements Product {
       const updated = await product.save();
       return this.productRepository.findOne({
         where: { id: updated.id },
-        relations: ['colors', 'images'],
+        relations: ['productDetails', 'discounts', 'reviews', 'tags', 'colors', 'images', 'sizes', 'media', 'variants','specifications'],
       });
     } catch (error) {
       if (error.code === 'ER_DUP_ENTRY') {
@@ -126,7 +126,7 @@ export class ProductRepository implements Product {
       skip: skip,
       take: take,
       where: { category: category },
-      relations: ['colors', 'images'],
+      relations: ['productDetails', 'discounts', 'reviews', 'tags', 'colors', 'images', 'sizes', 'media', 'variants','specifications'],
     });
     return { allProducts: allProducts.length, products };
   }
@@ -139,7 +139,7 @@ export class ProductRepository implements Product {
     const products = await this.productRepository.find({
       skip: skip,
       take: take,
-      relations: ['productDetails', 'colors', 'images', 'discounts', 'reviews', 'tags', 'productDetails.colors', 'productDetails.images', 'productDetails.sizes'],
+      relations: ['productDetails', 'discounts', 'reviews', 'tags', 'colors', 'images', 'sizes', 'media', 'variants','specifications'],
     });
     return { allProducts, products };
   }
@@ -191,7 +191,7 @@ export class ProductRepository implements Product {
       skip: skip,
       take: take,
       order: { price: order },
-      relations: ['colors', 'images'],
+      relations: ['productDetails', 'discounts', 'reviews', 'tags', 'colors', 'images', 'sizes', 'media', 'variants','specifications'],
     });
     return { allProducts, products };
   }

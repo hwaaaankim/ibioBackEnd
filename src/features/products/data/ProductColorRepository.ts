@@ -26,7 +26,7 @@ export class ProductColorRepository implements ProductColor {
 
     async update(id: string, color: string) {
         const found: ProductColorEntity = await AppDataSource.getRepository(ProductColorEntity).findOne({ where: { id: id } })
-        if (!found) throw new DataNotFoundException('image not found')
+        if (!found) throw new DataNotFoundException('color not found')
         try {
             
             found.color = color

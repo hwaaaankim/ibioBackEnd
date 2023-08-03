@@ -18,7 +18,7 @@ export class ProductMediaRepository implements ProductColor {
                 await AppDataSource.getRepository(this.entity).create({
                     productId: productId,
                     title: image.name,
-                    type: image.type
+                    type: 'image' //TO-DO CHANGE THIS TO THE REAL FILE TYPE
                 }).save()
 
             } catch (e) {
@@ -32,7 +32,7 @@ export class ProductMediaRepository implements ProductColor {
         if (!found) throw new DataNotFoundException('image not found')
         try {
             found.title = image.title
-            image.type = image.type
+            image.type = 'image' //TO-DO CHANGE THIS TO THE REAL FILE TYP
             await found.save()
         } catch (e) {
             throw new SystemErrorException()

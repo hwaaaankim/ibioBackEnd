@@ -3,6 +3,7 @@ import { ProductSpecificationEntity } from "./models/ProductSpecificationEntity"
 import { SystemErrorException } from "src/util/exception/SystemErrorException";
 import { DataNotFoundException } from "src/util/exception/DataNotFoundException";
 import { ProductSpecification } from "../domain/ProductSpecification";
+import { ProductSpecificationDto } from "./dtos/ProductSpecificationDto";
 
 
 export class ProductSpecificationRepository implements ProductSpecification {
@@ -22,7 +23,7 @@ export class ProductSpecificationRepository implements ProductSpecification {
         }
     }
 
-    async update(id: string, dto: any) {
+    async update(id: string, dto: ProductSpecificationDto) {
         const found: ProductSpecificationEntity = await AppDataSource.getRepository(ProductSpecificationEntity).findOne({ where: { id: id } })
         if (!found) throw new DataNotFoundException('specification not found')
         try {
