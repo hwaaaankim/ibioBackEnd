@@ -2,7 +2,7 @@ import { CommonEntity } from "src/database/CommonEntity";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('product_variants_value')
-export class ProductVariantValueEntity extends CommonEntity {
+export class ProductVariantEntity extends CommonEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: string
