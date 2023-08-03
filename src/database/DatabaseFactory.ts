@@ -19,6 +19,10 @@ import { PaymentAddressRepository } from './../features/payments/payment_address
 import { PaymentMethodRepository } from './../features/payments/payment_methods/data/PaymentMethodRepository';
 import { ShippingAddressRepository } from './/../features/shipping/shipping_addresses/data/ShippingAddressRepository';
 import { ProductSizeRepository } from 'src/features/products/data/ProductSizeRepository';
+import { ProductColorRepository } from 'src/features/products/data/ProductColorRepository';
+import { ProductSpecificationRepository } from 'src/features/products/data/ProductSpecificationRepository';
+import { ProductVariantRepository } from 'src/features/products/data/ProductVariantRepository';
+import { ProductMediaRepository } from 'src/features/products/data/ProductMediaRepository';
 
 export class DatabaseFactory {
   static getRepository(feature: string): any {
@@ -66,6 +70,21 @@ export class DatabaseFactory {
         break;
       case 'PRODUCT_DETAILS':
         repository = new ProductDetailRepository();
+        break;
+      case 'PRODUCT_COLOR':
+        repository = new ProductColorRepository();
+        break;
+      case 'PRODUCT_SIZE':
+        repository = new ProductSizeRepository();
+        break;
+      case 'PRODUCT_SPECIFICATION':
+        repository = new ProductSpecificationRepository();
+        break;
+      case 'PRODUCT_VARIANT':
+        repository = new ProductVariantRepository();
+        break;
+      case 'PRODUCT_MEDIA':
+        repository = new ProductMediaRepository();
         break;
       case 'WISHLIST':
         repository = new WishlistRepository();
