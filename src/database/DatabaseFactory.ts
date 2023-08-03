@@ -82,7 +82,7 @@ export class DatabaseFactory {
       case 'PAYMENT_METHOD':
         repository = new PaymentMethodRepository();
         break;
-      case 'Shipping_ADDRESS':
+      case 'SHIPPING_ADDRESS':
         repository = new ShippingAddressRepository();
         break;
       default:

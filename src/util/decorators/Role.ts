@@ -8,7 +8,8 @@ export function Role(roles: string[]): any {
     descriptor.value = function (...args: any[]) {
       // Authorization code goes here
       const user = AuthenticatedUser.getInstance();
-      const found = roles.find(role => role.toUpperCase() === user.role);
+      console.log(user);
+      const found = roles.find((role) => role.toUpperCase() === user.role);
       if (!found) {
         throw new ForbiddenException('Authorization Failed!');
       }

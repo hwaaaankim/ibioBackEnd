@@ -10,31 +10,31 @@ export class MemberService implements Member {
   constructor(repository: Member) {
     this.repository = repository;
   }
-  addMember(newMember: AddMemberDto) {
+  addMember(newMember: AddMemberDto): any {
     return this.repository.addMember(newMember);
   }
-  updateMember(id: string, updatedMember: UpdateMemberDto) {
+  updateMember(id: string, updatedMember: UpdateMemberDto): any {
     return this.repository.updateMember(id, updatedMember);
   }
-  getMember(id: string) {
-    return this.getMember(id);
+  getMember(id: string): any {
+    return this.repository.getMember(id);
   }
-  getMembers() {
+  getMembers(): any {
     return this.repository.getMembers();
   }
-  deleteMember(id: string) {
+  deleteMember(id: string): any {
     return this.repository.deleteMember(id);
   }
-  addMemberSocialAccount(newSocailAccount: AddMemberSocialAccountDto) {
+  addMemberSocialAccount(newSocailAccount: AddMemberSocialAccountDto): any {
     return this.repository.addMemberSocialAccount(newSocailAccount);
   }
   updateMemberSocialAccount(
     id: string,
     memberSocialAccount: UpdateMemberSocialAccountDto,
-  ) {
+  ): any {
     return this.repository.updateMemberSocialAccount(id, memberSocialAccount);
   }
-  deleteMemberSocailAccount(id: string) {
+  deleteMemberSocailAccount(id: string): any {
     return this.repository.deleteMemberSocailAccount(id);
   }
 }

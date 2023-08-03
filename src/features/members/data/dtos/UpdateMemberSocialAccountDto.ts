@@ -2,16 +2,16 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateMemberSocialAccountDto {
-  @ApiProperty({ type: String, description: 'member id' })
+  @ApiProperty({ type: 'memberId', description: 'Member id' })
   @IsString()
   @IsOptional()
   memberId: string;
 
-  @ApiProperty({ type: String, description: 'link' })
+  @ApiProperty({ type: 'link', description: 'link' })
   @IsString()
   @IsOptional()
   link: string;
 
-  @ApiProperty({ type: String, description: 'icon' })
+  @ApiProperty({ type: 'icon', description: 'icon' })
   icon: string;
 }

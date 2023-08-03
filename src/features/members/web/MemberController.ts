@@ -13,7 +13,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { MemberService } from '../domain/MemberService';
-import { DatabaseFactory } from 'src/database/DatabaseFactory';
+import { DatabaseFactory } from '../../../database/DatabaseFactory';
 import { AddMemberDto } from '../data/dtos/AddMemberDto';
 import { UpdateMemberDto } from '../data/dtos/UpdateMemberDto';
 import { AddMemberSocialAccountDto } from '../data/dtos/AddMemberSocialAccountDto';
@@ -24,8 +24,14 @@ import { MulterImageConfig } from '../../../util/file_upload/MulterConfig';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ValidationException } from '../../../util/exception/ValidationException';
 import { ApiExtraModels } from '@nestjs/swagger';
+import { CompressionPipe } from 'src/util/file_upload/CompressionPipe';
 
-@ApiExtraModels(AddMemberDto, AddMemberSocialAccountDto, UpdateMemberDto, UpdateMemberSocialAccountDto)
+@ApiExtraModels(
+  AddMemberDto,
+  AddMemberSocialAccountDto,
+  UpdateMemberDto,
+  UpdateMemberSocialAccountDto,
+)
 @Controller('members')
 export class MemberController {
   private memberService: MemberService;
@@ -39,7 +45,7 @@ export class MemberController {
   @Post()
   @UsePipes(ValidationPipe)
   @UseGuards(JwtAuthGuard)
-  @Role(['admin'])
+  @Role(['ADMIN'])
   addMember(@Body() addMemberDto: AddMemberDto): any {
     return this.memberService.addMember(addMemberDto);
   }
@@ -47,7 +53,7 @@ export class MemberController {
   @Put(':id')
   @UsePipes(ValidationPipe)
   @UseGuards(JwtAuthGuard)
-  @Role(['admin'])
+  @Role(['ADMIN'])
   updateMember(
     @Param('id') id: string,
     @Body() updatedMember: UpdateMemberDto,
@@ -68,32 +74,32 @@ export class MemberController {
   @Delete(':id')
   @UsePipes(ValidationPipe)
   @UseGuards(JwtAuthGuard)
-  @Role(['admin'])
+  @Role(['ADMIN'])
   deleteMember(@Param('id') id: string): any {
     return this.memberService.deleteMember(id);
   }
 
   @Post('/social_account')
-  @UsePipes(ValidationPipe)
   @UseInterceptors(FileInterceptor('icon', MulterImageConfig))
+  @UsePipes(ValidationPipe)
   @UseGuards(JwtAuthGuard)
-  @Role(['admin'])
+  @Role(['ADMIN'])
   addMemberSocialAccount(
-    @Body() newSocailAccount: AddMemberSocialAccountDto,
+    @Body() newSocialAccount: AddMemberSocialAccountDto,
     @UploadedFile() icon: any,
   ): any {
     if (!icon) {
       throw new ValidationException('Icon is required');
     }
-    newSocailAccount.icon = icon.filename;
 
-    return this.memberService.addMemberSocialAccount(newSocailAccount);
+    newSocialAccount.icon = icon.filename;
+    return this.memberService.addMemberSocialAccount(newSocialAccount);
   }
 
   @Put('/social_accounts/:id')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('icon', MulterImageConfig))
-  @Role(['admin'])
+  @Role(['ADMIN'])
   updateMemberSocialAccount(
     @Param('id') id: string,
     @Body() memberSocialAccount: UpdateMemberSocialAccountDto,
@@ -110,7 +116,7 @@ export class MemberController {
 
   @Delete('/socail_accounts/:id')
   @UseGuards(JwtAuthGuard)
-  @Role(['admin'])
+  @Role(['ADMIN'])
   deleteMemberSocailAccount(@Param('id') id: string): any {
     return this.memberService.deleteMemberSocailAccount(id);
   }

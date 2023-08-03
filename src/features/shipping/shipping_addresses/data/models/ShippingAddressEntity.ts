@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { StateEntity } from '../../../../../features/states/data/models/StateEntity';
 
-@Entity('Shipping_addresses')
+@Entity('shipping_addresses')
 export class ShippingAddressEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

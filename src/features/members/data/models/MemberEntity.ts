@@ -7,18 +7,19 @@ export class MemberEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('varchar')
+  @Column('varchar', { nullable: false })
   fullName: string;
 
-  @Column('varchar')
-  responsiblity: string;
+  @Column('varchar', { nullable: false })
+  responsibility: string;
 
-  @Column('text')
+  @Column('text', { nullable: false })
   description: string;
 
   @OneToMany(
     () => MemberSocialAccountEntity,
     (socialAccount) => socialAccount.member,
+    { onDelete: 'CASCADE' },
   )
   socialAccounts: MemberSocialAccountEntity[];
 }
