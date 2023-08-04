@@ -4,11 +4,11 @@ import * as sharp from 'sharp';
 import { v4 as uuid } from 'uuid';
 
 @Injectable()
-export class CompressionPipe implements PipeTransform<Express.Multer.File[], Promise<string>> {
+export class CompressionPipeMultiple implements PipeTransform<Express.Multer.File[], Promise<string>> {
 
 
     async transform(images: Express.Multer.File[]): Promise<any> {
-        if(!images) return
+        if (!images) return
         let uploadedImages = new Array();
         for (const image of images) {
             const filename = uuid() + '.webp';
@@ -21,6 +21,22 @@ export class CompressionPipe implements PipeTransform<Express.Multer.File[], Pro
         console.log(uploadedImages)
         return uploadedImages
 
+    }
+
+}
+
+
+@Injectable()
+export class CompressionPipe implements PipeTransform<Express.Multer.File, Promise<string>> {
+
+    async transform(image: Express.Multer.File): Promise<any> {
+        if (!image) return
+        const filename = uuid() + '.webp';
+        await sharp(image.buffer)
+            .resize(1000)
+            .webp({ effort: 3 })
+            .toFile(path.join('uploads/images', filename))
+        return filename
     }
 
 }

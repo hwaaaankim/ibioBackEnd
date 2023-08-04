@@ -17,4 +17,7 @@ export class CurrencyEntity extends CommonEntity {
 
   @Column('varchar', { nullable: true })
   displaySymbol: string;
+
+  @Column('boolean', { default: false })
+  isDefault: boolean;
 }

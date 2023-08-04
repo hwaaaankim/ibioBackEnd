@@ -22,7 +22,6 @@ export class ProductDto {
     categoryId: string
 
     code: string
-
     colors: string
     sizes: string
     

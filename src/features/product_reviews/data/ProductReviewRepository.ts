@@ -46,6 +46,34 @@ export class ProductReviewRepository implements ProductReview {
     return productReviews;
   }
 
+  async getProductRate(productId: string): Promise<any> {
+    const productRate = await this.productReviewRepository
+      .createQueryBuilder('productReview')
+      .select(['SUM(productReview.rating)', 'productReview.productId'])
+      .where('productReview.productId=:', { productId: productId })
+      .groupBy('productReview.productId')
+      .getOne();
+
+    if (!productRate) {
+      throw new DataNotFoundException('Product rate not dound');
+    }
+    return productRate;
+  }
+
+  async getProductRates(): Promise<any> {
+    const productRates = await this.productReviewRepository
+      .createQueryBuilder('productReview')
+      .select(['SUM(productReview.rating)', 'productReview.productId'])
+      .groupBy('productReview.productId')
+      .getMany();
+
+    if (!productRates)
+      throw new DataNotFoundException(
+        'No ProductReviews have been created yet',
+      );
+    return productRates;
+  }
+
   async updateProductReview(
     ProductReviewId: string,
     updatedProductReview: UpdateProductReviewDto,

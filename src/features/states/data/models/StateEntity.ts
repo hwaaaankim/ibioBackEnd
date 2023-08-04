@@ -1,5 +1,8 @@
+import { TaxRateEntity } from 'src/features/taxes/data/models/TaxRateEntity';
 import { CommonEntity } from '../../../../database/CommonEntity';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { PaymentAddressEntity } from '../../../../features/payments/payment_addresses/data/models/PaymentAddressEntity';
+import { ShippingAddressEntity } from '../../../../features/shipping/shipping_addresses/data/models/ShippingAddressEntity';
 
 @Entity('states')
 export class StateEntity extends CommonEntity {
@@ -8,4 +11,19 @@ export class StateEntity extends CommonEntity {
 
   @Column('varchar', { nullable: false, unique: true })
   name: string;
+
+  @OneToMany(() => TaxRateEntity, (rate) => rate.state)
+  taxRates: TaxRateEntity[];
+
+  @OneToMany(
+    () => PaymentAddressEntity,
+    (paymentAddress) => paymentAddress.state,
+  )
+  paymentAddresses: PaymentAddressEntity[];
+
+  @OneToMany(
+    () => ShippingAddressEntity,
+    (shippingAddress) => shippingAddress.state,
+  )
+  shippingAddresses: ShippingAddressEntity[];
 }

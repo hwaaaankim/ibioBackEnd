@@ -74,8 +74,8 @@ export class UserRepository implements User {
     loggedUser.firstName = userDto.firstName;
     loggedUser.lastName = userDto.lastName;
     loggedUser.email = userDto.email;
-    loggedUser.userName = userDto.userName
-    loggedUser.userName = userDto.userName
+    //    loggedUser.userName = userDto.userName;
+    loggedUser.userName = userDto.userName;
     try {
       await loggedUser.save();
     } catch (e) {
@@ -95,10 +95,9 @@ export class UserRepository implements User {
     try {
       // save the user info
       user = await this.userRepository.create(userDto).save();
-      user = await this.userRepository.create(userDto).save();
       const address = userDto.address;
       address.userId = user.id;
-      // create the address
+      //  create the address
       await AppDataSource.getRepository(AddressEntity).create(address).save();
       // generate verification code
       const code = this.generateVerificationCode();
@@ -108,13 +107,13 @@ export class UserRepository implements User {
           verificationCode: code,
         })
         .save();
-      return 'successfully registered'
+      return 'successfully registered';
     } catch (error) {
-      console.log(error)
+      console.log(error);
       // check if account alreay exists
       if (error.code === 'ER_DUP_ENTRY') {
-        await this.userRepository.remove({ id: user.id })
-        await this.userRepository.remove({ id: user.id })
+        await this.userRepository.remove({ id: user.id });
+        await this.userRepository.remove({ id: user.id });
         throw new DuplicateResouceFound('Account already exists');
       }
       // throw general system error

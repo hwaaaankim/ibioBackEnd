@@ -11,8 +11,8 @@ import { AppDataSource } from 'src/database/config/TypeOrmConfig';
 
 export class CurrencyRepository implements Currency {
   entity: EntityClassOrSchema = CurrencyEntity;
-
   currencyRepository = AppDataSource.getRepository(this.entity);
+
   async addCurrency(newCurrency: AddCurrencyDto): Promise<boolean> {
     try {
       await this.currencyRepository.create(newCurrency).save();
@@ -55,6 +55,9 @@ export class CurrencyRepository implements Currency {
       currency.decimalPlaces = updatedCurrency.decimalPlaces;
     if (updatedCurrency.dsiplaySymbol)
       currency.displaySymbol = updatedCurrency.dsiplaySymbol;
+    if (updatedCurrency.isDefault) {
+      currency.isDefault = updatedCurrency.isDefault;
+    }
     try {
       await currency.save();
       return true;

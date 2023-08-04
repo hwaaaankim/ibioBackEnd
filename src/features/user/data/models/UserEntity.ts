@@ -8,8 +8,9 @@ import {
 import { UserVerificationEntity } from './UserVerificationEntity';
 import { AddressEntity } from './AddressEntity';
 import { CommonEntity } from '../../../../database/CommonEntity';
-import { Wishlist } from 'src/features/wishlists/domain/WishList'
 import { WishlistEntity } from 'src/features/wishlists/data/models/WishlistEntity';
+import { PaymentAddressEntity } from '../../../../features/payments//payment_addresses/data/models/PaymentAddressEntity';
+import { ShippingAddressEntity } from '../../../../features/shipping/shipping_addresses/data/models/ShippingAddressEntity';
 
 @Entity('users')
 export class UserEntity extends CommonEntity {
@@ -48,4 +49,16 @@ export class UserEntity extends CommonEntity {
 
   @OneToMany(() => WishlistEntity, (wishlist) => wishlist.user)
   wishlists: WishlistEntity[];
+
+  @OneToMany(
+    () => PaymentAddressEntity,
+    (paymentAddress) => paymentAddress.user,
+  )
+  paymentAddresses: PaymentAddressEntity[];
+
+  @OneToMany(
+    () => ShippingAddressEntity,
+    (shippingAddress) => shippingAddress.user,
+  )
+  shippingAddresses: ShippingAddressEntity[];
 }

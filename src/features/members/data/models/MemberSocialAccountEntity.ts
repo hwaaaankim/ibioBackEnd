@@ -7,13 +7,13 @@ export class MemberSocialAccountEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('varchar')
+  @Column('varchar', { nullable: false })
   memberId: string;
 
-  @Column('varchar')
+  @Column('varchar', { nullable: false })
   icon: string;
 
-  @Column('text')
+  @Column('text', { nullable: false })
   link: string;
 
   @ManyToOne(() => MemberEntity, (member) => member.socialAccounts)

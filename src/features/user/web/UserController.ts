@@ -42,8 +42,8 @@ export class UserController {
 
   @Post('/resend/:email')
   async resendCode(@Param('email') email: string): Promise<any> {
-    const code =  await this.userService.resendCode(email)
-    if( code ) {
+    const code = await this.userService.resendCode(email);
+    if (code) {
       await VerificationMail.send(email, code);
     }
     return true;
@@ -53,21 +53,21 @@ export class UserController {
   @UsePipes(ValidationPipe)
   @UseGuards(JwtAuthGuard)
   updateAccount(@Body() userDto: UserDto): Promise<any> {
-    return this.userService.updateAccount(userDto)
+    return this.userService.updateAccount(userDto);
   }
 
   @Patch('/change_password')
   @UsePipes(ValidationPipe)
   @UseGuards(JwtAuthGuard)
   updatePassword(@Body() passwordDto: PasswordDto): Promise<any> {
-    return this.userService.updatePassword(passwordDto)
+    return this.userService.updatePassword(passwordDto);
   }
 
   @Post('/login')
   @UsePipes(ValidationPipe)
   async login(@Body() loginDto: LoginDto): Promise<any> {
     const user = await this.userService.login(loginDto);
-    console.log(user)
+    // console.log(user)
     if (user) {
       user.password = null;
       user.salt = null;
@@ -75,7 +75,7 @@ export class UserController {
         userId: user.id,
         email: user.email,
         role: user.role,
-        shopId: user.shop != null ? user.shop.id : null
+        shopId: user.shop != null ? user.shop.id : null,
       }).execute();
       const userResponseData = {
         access_token: token,
@@ -89,7 +89,7 @@ export class UserController {
   @UsePipes(ValidationPipe)
   async register(@Body() userDto: UserDto): Promise<any> {
     const user = await this.userService.register(userDto);
-    return user
+    return user;
   }
 
   @Put('/verify')
@@ -101,8 +101,10 @@ export class UserController {
   @Get()
   @UseGuards(JwtAuthGuard)
   @Role(['ADMIN'])
-  getAccounts(@Query('page') page?: number,
-  @Query('limit') limit?: number): any {
+  getAccounts(
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+  ): any {
     return this.userService.getAccounts(page, limit);
   }
 
@@ -122,11 +124,11 @@ export class UserController {
 
   @Get('/exists/email/:email')
   emailExists(@Param('email') email: string): any {
-    return this.userService.emailExists(email)
+    return this.userService.emailExists(email);
   }
 
   @Get('/exists/phone/:phone')
   phoneNumberExists(@Param('phone') phone: string): any {
-    return this.userService.phoneNumberExists(phone)
+    return this.userService.phoneNumberExists(phone);
   }
 }

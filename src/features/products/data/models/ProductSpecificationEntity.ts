@@ -16,7 +16,7 @@ export class ProductSpecificationEntity extends BaseEntity {
     @Column('varchar')
     value: string
 
-    @ManyToOne(() => ProductEntity, prod => prod.attributes)
+    @ManyToOne(() => ProductEntity, prod => prod.specifications)
     // @JoinColumn({ referencedColumnName: 'id'})
     product: ProductEntity
 

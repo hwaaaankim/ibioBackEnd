@@ -1,8 +1,9 @@
 import { CommonEntity } from "src/database/CommonEntity";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { ProductEntity } from "./ProductEntity";
 
 @Entity('product_variants_value')
-export class ProductVariantValueEntity extends CommonEntity {
+export class ProductVariantEntity extends CommonEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: string
@@ -27,6 +28,10 @@ export class ProductVariantValueEntity extends CommonEntity {
 
     @Column('boolean', { default: true })
     isAvailable: boolean
+
+    @ManyToOne(() => ProductEntity, prod => prod.specifications)
+    // @JoinColumn({ referencedColumnName: 'id'})
+    product: ProductEntity
 
 
 }

@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsNotEmpty,
   IsString,
@@ -12,43 +12,42 @@ import {
   IsDefined,
   IsNotEmptyObject,
   ValidateNested,
-} from 'class-validator'
-import { AddressDto } from './AddressDto'
-import { Type } from 'class-transformer'
+} from 'class-validator';
+import { AddressDto } from './AddressDto';
+import { Type } from 'class-transformer';
 
 export class UserDto {
   @IsNotEmpty()
   @IsString()
-  firstName: string
+  firstName: string;
 
   @IsNotEmpty()
   @IsString()
-  lastName: string
+  lastName: string;
 
   @IsNotEmpty()
   @IsString()
   @IsOptional()
-  userName: string
+  userName: string;
 
   @IsNotEmpty()
   @IsEmail()
-  email: string
+  email: string;
 
   @IsEmpty()
-  salt: string
+  salt: string;
 
   @IsNotEmpty()
   @IsString()
   @MinLength(8)
   @MaxLength(30)
   @ApiProperty({ type: String, description: 'password' })
-  password: string
+  password: string;
 
   @IsDefined()
   @IsNotEmptyObject()
   @ValidateNested()
   @Type(() => AddressDto)
   @ApiProperty({ type: Object, description: 'address object' })
-  address: AddressDto
-
+  address: AddressDto;
 }

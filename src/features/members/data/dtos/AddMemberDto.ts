@@ -4,16 +4,16 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class AddMemberDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ type: String, description: 'fullName' })
+  @ApiProperty({ type: 'fullName', description: 'fullName' })
   fullName: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ type: String, description: 'responsibilly' })
-  responsiblity: string;
+  @ApiProperty({ type: 'responsibility', description: 'responsibilly' })
+  responsibility: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ type: String, description: 'description' })
+  @ApiProperty({ type: 'description', description: 'description' })
   description: string;
 }

@@ -9,10 +9,12 @@ import { MemberEntity } from './models/MemberEntity';
 import { SystemErrorException } from 'src/util/exception/SystemErrorException';
 import { DataNotFoundException } from 'src/util/exception/DataNotFoundException';
 import { MemberSocialAccountEntity } from './models/MemberSocialAccountEntity';
-import { unlinkSync } from 'fs';
+import { existsSync, unlinkSync } from 'fs';
+import { join } from 'path';
 
 export class MemberRepository implements Member {
   entity: EntityClassOrSchema = MemberEntity;
+
   private memberRepository = AppDataSource.getRepository(this.entity);
   private memberSocialAccountRepository = AppDataSource.getRepository(
     MemberSocialAccountEntity,
@@ -36,8 +38,8 @@ export class MemberRepository implements Member {
     if (updatedMember.fullName) {
       member.fullName = updatedMember.fullName;
     }
-    if (updatedMember.responsiblity) {
-      member.responsiblity = updatedMember.responsiblity;
+    if (updatedMember.responsibility) {
+      member.responsiblity = updatedMember.responsibility;
     }
 
     if (updatedMember.description) {
@@ -53,7 +55,10 @@ export class MemberRepository implements Member {
   }
 
   async getMember(id: string): Promise<any> {
-    const member = await this.memberRepository.findOne({ where: { id: id } });
+    const member = await this.memberRepository.findOne({
+      where: { id: id },
+      relations: ['socialAccounts'],
+    });
     if (!member) {
       throw new DataNotFoundException('Member not found.');
     }
@@ -73,7 +78,7 @@ export class MemberRepository implements Member {
 
   async getMembers(): Promise<any> {
     const members = await this.memberRepository.find({
-      relations: ['socialAccount'],
+      relations: ['socialAccounts'],
     });
     if (!members) {
       throw new DataNotFoundException('Member not found.');
@@ -95,7 +100,7 @@ export class MemberRepository implements Member {
     newSocailAccount: AddMemberSocialAccountDto,
   ): Promise<boolean> {
     try {
-      await this.memberRepository.create(newSocailAccount).save();
+      await this.memberSocialAccountRepository.create(newSocailAccount).save();
       return true;
     } catch (e) {
       throw new SystemErrorException();
@@ -116,8 +121,16 @@ export class MemberRepository implements Member {
     }
 
     if (updatedMemberSocialAccount.icon) {
+      if (
+        existsSync(
+          join(process.cwd() + `/uploads/${updatedMemberSocialAccount.icon}`),
+        )
+      ) {
+        unlinkSync(
+          join(process.cwd() + `/uploads/${updatedMemberSocialAccount.icon}`),
+        );
+      }
       memberSocialAccount.icon = updatedMemberSocialAccount.icon;
-      unlinkSync(`uploads/images/${updatedMemberSocialAccount.icon}`);
     }
 
     try {
@@ -132,6 +145,15 @@ export class MemberRepository implements Member {
     const memberSocialAccount = await this.getMemberSocialAccount(id);
     try {
       await memberSocialAccount.softRemove();
+      if (
+        existsSync(
+          join(process.cwd() + `/uploads/images/${memberSocialAccount.icon}`),
+        )
+      ) {
+        unlinkSync(
+          join(process.cwd() + `/uploads/images/${memberSocialAccount.icon}`),
+        );
+      }
       return true;
     } catch (e) {
       throw new SystemErrorException();

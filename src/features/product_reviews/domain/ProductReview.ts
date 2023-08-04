@@ -5,6 +5,8 @@ export interface ProductReview {
   addProductReview(newProductReview: AddProductReviewDto): any;
   getProductReview(productReviewId: string): any;
   getProductReviews(): any;
+  getProductRates(): any;
+  getProductRate(productId: string): any;
   updateProductReview(
     productReviewId: string,
     updatedProductReview: UpdateProductReviewDto,

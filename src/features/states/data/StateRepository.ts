@@ -3,7 +3,6 @@ import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-clas
 import { State } from '../domain/State';
 import { AddStateDto } from './dtos/AddStateDto';
 import { UpdateStateDto } from './dtos/UpdateStateDto';
-import { getRepository } from 'typeorm';
 import { SystemErrorException } from '../../../util/exception/SystemErrorException';
 import { DuplicateResouceFound } from '../../../util/exception/DuplicateResourceFound';
 import { DataNotFoundException } from '../../../util/exception/DataNotFoundException';
